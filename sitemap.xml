@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://elegantme.cn/about/index.html</loc>
+    
+    <lastmod>2018-11-09T08:41:09.722Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://elegantme.cn/2018/11/08/hello-world/</loc>
     
     <lastmod>2018-11-08T14:59:09.836Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://elegantme.cn/search/index.html</loc>
     
     <lastmod>2018-11-08T14:55:31.756Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://elegantme.cn/about/index.html</loc>
-    
-    <lastmod>2018-11-08T14:43:32.390Z</lastmod>
     
   </url>
   
