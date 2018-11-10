@@ -1,1 +1,3 @@
+http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/
+http://elegantme.cn/2018/11/09/关于Disqus评论功能/
 http://elegantme.cn/2018/11/08/hello-world/

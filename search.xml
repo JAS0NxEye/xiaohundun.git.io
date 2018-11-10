@@ -3,19 +3,59 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2018/11/08/hello-world/"/>
-      <url>/2018/11/08/hello-world/</url>
+      <title>Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用</title>
+      <link href="/2018/11/09/Mac%E4%B8%8BHexo-Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E3%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E3%80%81hexo%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/"/>
+      <url>/2018/11/09/Mac%E4%B8%8BHexo-Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E3%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E3%80%81hexo%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2>Quick Start</h2><h3>Create a new post</h3><p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure></p><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3>Run server</h3><p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3>Generate static files</h3><p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></p><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3>Deploy to remote sites</h3><p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p><p>本文链接 <a href="http://elegantme.cn/2018/11/08/hello-world/">http://elegantme.cn/2018/11/08/hello-world/</a> 转载请标明出处</p><div><h1>推荐文章<span style="font-size:0.45em; color:gray">（由<a href="https://github.com/huiwang/hexo-recommended-posts">hexo文章推荐插件</a>驱动）</span></h1><ul><li><a href="https://hjptriplebee.github.io/hexo的SEO方法.html/">hexo的SEO方法</a></li></ul></div>]]></content>
+        <content type="html"><![CDATA[<p>这篇文章将从头为大家介绍:</p><ol><li>在Mac下下Hexo+Github搭建博客的流程</li><li>购买一个心仪的域名并将其解析之你的博客</li><li>一些hexo插件的使用</li></ol><h3 id="安装node和npm"><a class="markdownIt-Anchor" href="#安装node和npm"></a> 安装node和npm</h3><blockquote><p>如果你已经安装好了node和npm,跳过此节</p></blockquote><h4 id="nvm推荐"><a class="markdownIt-Anchor" href="#nvm推荐"></a> nvm(推荐)</h4><blockquote><p>nvm Node Version Manager node版本管理</p></blockquote><p>使用cURL安装和更新命令如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash</span><br></pre></td></tr></table></figure><p>或者使用Wget：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash</span><br></pre></td></tr></table></figure><p>详细事项参考:<a href="https://github.com/creationix/nvm/blob/master/README.md" target="_blank" rel="noopener">README</a><br>安装成功后使用:<code>nvm install stable</code>命令安装最新稳定版node<br>若你安装完毕使用过程中出现:<code>command not found: nvm</code>，请添加以下内容</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR="/Users/username/.nvm"</span><br><span class="line">[ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh"</span><br></pre></td></tr></table></figure><p>至*<sub>/.bash_profile*或者zsh的*</sub>/.zshrc*，请注意<em>username</em>是你的用户名</p><h4 id="homebrew"><a class="markdownIt-Anchor" href="#homebrew"></a> Homebrew</h4><p>安装Homebrew参考这里:<a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a><br>之后使用<code>brew install node</code>安装node</p><h4 id="官网安装"><a class="markdownIt-Anchor" href="#官网安装"></a> 官网安装</h4><p>前往<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">nodejs.org</a>下载安装器安装</p><h3 id="安装git"><a class="markdownIt-Anchor" href="#安装git"></a> 安装git</h3><blockquote><p>如果你已经安装好了git,跳过此节</p></blockquote><p>在terminal尝试运行<em>git</em>命令即可，若没有安装，将会提示进行安装<br>或者使用之前安装好的<a href="#Homebrew">Homebew</a>:<code>brew install git</code></p><h3 id="安装hexo"><a class="markdownIt-Anchor" href="#安装hexo"></a> 安装Hexo</h3><p>使用下面的命令检查npm/node/git是否安装:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm -v </span><br><span class="line">node -v</span><br><span class="line">git --version</span><br></pre></td></tr></table></figure><p><img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/1.png" alt=""><br>若你已经拥有了<a href="#%E5%AE%89%E8%A3%85node%E5%92%8Cnpm">node</a>和<a href="#%E5%AE%89%E8%A3%85git">git</a>只需运行<code>$ npm install -g hexo-cli</code>即可</p><h4 id="建站"><a class="markdownIt-Anchor" href="#建站"></a> 建站</h4><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure><blockquote><p>**注意:**在你指定的目录下也就是上述&lt;folder&gt;执行hexo命令。<br>**注意:**如果你是在nodejs官网安装的node的话,在使用npm install命令时可能会碰到权限不足的错误,参考<a href="https://docs.npmjs.com/getting-started/fixing-npm-permissions" target="_blank" rel="noopener">权限不足</a>,本人遇到并采用了第二种方法。</p></blockquote><p>之后使用<code>$ hexo d</code>以及<code>$ hexo server</code>既在本地运行了博客,<a href="http://localhost:4000" target="_blank" rel="noopener">点击</a>查看效果</p><h3 id="在github创建仓库并开启githubio"><a class="markdownIt-Anchor" href="#在github创建仓库并开启githubio"></a> <a href="http://xn--Githubgithub-y16sp18abzhwxmsj5a5oa76dsd.io" target="_blank" rel="noopener">在Github创建仓库并开启github.io</a></h3><h3 id="使用hexo插件"><a class="markdownIt-Anchor" href="#使用hexo插件"></a> 使用Hexo插件</h3><p>本文链接 <a href="http://elegantme.cn/2018/11/09/Mac%E4%B8%8BHexo-Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E3%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E3%80%81hexo%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/</a> 转载请标明出处</p>]]></content>
       
       
       
         <tags>
             
-            <tag> helloworld </tag>
+            <tag> hexo </tag>
+            
+            <tag> hexo域名解析 </tag>
+            
+            <tag> github.io </tag>
+            
+            <tag> hexo plugins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>关于Disqus评论功能</title>
+      <link href="/2018/11/09/%E5%85%B3%E4%BA%8EDisqus%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/"/>
+      <url>/2018/11/09/%E5%85%B3%E4%BA%8EDisqus%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/</url>
+      
+        <content type="html"><![CDATA[<p>果然因为GFW的原因导致只有设置了代理才可以使用Disqus评论功能😒</p><p>本文链接 <a href="http://elegantme.cn/2018/11/09/%E5%85%B3%E4%BA%8EDisqus%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/">http://elegantme.cn/2018/11/09/关于Disqus评论功能/</a> 转载请标明出处</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Disqus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2018/11/08/hello-world/"/>
+      <url>/2018/11/08/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h2><h3 id="create-a-new-post"><a class="markdownIt-Anchor" href="#create-a-new-post"></a> Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="run-server"><a class="markdownIt-Anchor" href="#run-server"></a> Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="generate-static-files"><a class="markdownIt-Anchor" href="#generate-static-files"></a> Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="deploy-to-remote-sites"><a class="markdownIt-Anchor" href="#deploy-to-remote-sites"></a> Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p><p>本文链接 <a href="http://elegantme.cn/2018/11/08/hello-world/">http://elegantme.cn/2018/11/08/hello-world/</a> 转载请标明出处</p><div><h1>推荐文章<span style="font-size:0.45em; color:gray">（由<a href="https://github.com/huiwang/hexo-recommended-posts">hexo文章推荐插件</a>驱动）</span></h1><ul><li><a href="https://hjptriplebee.github.io/hexo的SEO方法.html/">hexo的SEO方法</a></li></ul></div>]]></content>
+      
+      
+      
+        <tags>
             
             <tag> hexo </tag>
+            
+            <tag> helloworld </tag>
             
         </tags>
       
