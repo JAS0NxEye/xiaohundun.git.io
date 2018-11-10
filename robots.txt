@@ -1,0 +1,7 @@
+#hexo robots.txt
+User-agent: *
+
+
+Sitemap: https://xiaohundun.github.io/search.xml
+Sitemap: https://xiaohundun.github.io/sitemap.xml
+Sitemap: https://xiaohundun.github.io/baidusitemap.xml

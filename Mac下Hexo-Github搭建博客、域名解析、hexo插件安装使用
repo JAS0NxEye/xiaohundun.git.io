@@ -10,24 +10,24 @@
 <meta name="keywords" content="hexo,hexo域名解析,github.io,hexo plugins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用">
-<meta property="og:url" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/index.html">
+<meta property="og:url" content="http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用">
 <meta property="og:site_name" content="xiaohundun">
 <meta property="og:description" content="这篇文章将为大家介绍:  在Mac下Hexo+Github搭建博客 将域名解析到你的博客 一些hexo插件的使用  将结合自己的安装经历、其他参考博文、官方文档带着你完成博客的搭建  安装node和npm  如果你已经安装好了node和npm,跳过此节   nvm(推荐)  nvm Node Version Manager node版本管理  使用cURL安装和更新命令如下： 1curl -o-">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/1.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/2.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/3.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/5.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/4.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/6.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/7.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/8.png">
-<meta property="og:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/9.png">
+<meta property="og:image" content="http://elegantme.cn/1.png">
+<meta property="og:image" content="http://elegantme.cn/2.png">
+<meta property="og:image" content="http://elegantme.cn/3.png">
+<meta property="og:image" content="http://elegantme.cn/5.png">
+<meta property="og:image" content="http://elegantme.cn/4.png">
+<meta property="og:image" content="http://elegantme.cn/6.png">
+<meta property="og:image" content="http://elegantme.cn/7.png">
+<meta property="og:image" content="http://elegantme.cn/8.png">
+<meta property="og:image" content="http://elegantme.cn/9.png">
 <meta property="og:updated_time" content="2018-11-10T11:05:30.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用">
 <meta name="twitter:description" content="这篇文章将为大家介绍:  在Mac下Hexo+Github搭建博客 将域名解析到你的博客 一些hexo插件的使用  将结合自己的安装经历、其他参考博文、官方文档带着你完成博客的搭建  安装node和npm  如果你已经安装好了node和npm,跳过此节   nvm(推荐)  nvm Node Version Manager node版本管理  使用cURL安装和更新命令如下： 1curl -o-">
-<meta name="twitter:image" content="http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/1.png">
+<meta name="twitter:image" content="http://elegantme.cn/1.png">
     
     
         
@@ -86,7 +86,7 @@
       <ul>
         
         
-        <li><a class="icon" href="/2018/11/09/关于Disqus评论功能/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/关于Disqus评论功能"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -99,22 +99,22 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&text=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&is_video=false&description=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&body=Check out this article: http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&name=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&text=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&is_video=false&description=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&body=Check out this article: http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&name=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装node和npm"><span class="toc-number">1.</span> <span class="toc-text"> 安装node和npm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm推荐"><span class="toc-number">1.1.</span> <span class="toc-text"> nvm(推荐)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew"><span class="toc-number">1.2.</span> <span class="toc-text"> Homebrew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#官网安装"><span class="toc-number">1.3.</span> <span class="toc-text"> 官网安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.</span> <span class="toc-text"> 安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装hexo"><span class="toc-number">3.</span> <span class="toc-text"> 安装Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建站"><span class="toc-number">3.1.</span> <span class="toc-text"> 建站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">3.2.</span> <span class="toc-text"> 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-number">3.3.</span> <span class="toc-text"> 基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#写作"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 写作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#front-matter"><span class="toc-number">3.3.2.</span> <span class="toc-text"> Front-matter</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件及主题的使用"><span class="toc-number">3.4.</span> <span class="toc-text"> 插件及主题的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在github创建仓库并开启github-pages"><span class="toc-number">4.</span> <span class="toc-text"> 在Github创建仓库并开启GitHub Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置hexo将博客部署到github上"><span class="toc-number">4.1.</span> <span class="toc-text"> 配置Hexo,将博客部署到GitHub上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将你的域名解析到github-pages"><span class="toc-number">4.2.</span> <span class="toc-text"> 将你的域名解析到Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo插件"><span class="toc-number">5.</span> <span class="toc-text"> 使用Hexo插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo主题"><span class="toc-number">5.1.</span> <span class="toc-text"> Hexo主题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主题配置"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 主题配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开启本地搜索"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 开启本地搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#站点计数插件hexo-wordcount"><span class="toc-number">5.2.</span> <span class="toc-text"> 站点计数插件(hexo-wordcount)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨站文章推荐插件hexo-recommended-posts"><span class="toc-number">5.3.</span> <span class="toc-text"> 跨站文章推荐插件(hexo-recommended-posts)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地搜索插件hexo-generator-search"><span class="toc-number">5.4.</span> <span class="toc-text"> 本地搜索插件(hexo-generator-search)</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">推荐文章（由hexo文章推荐插件驱动）</span></a>
-    </li></div>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装node和npm"><span class="toc-number">1.</span> <span class="toc-text"> 安装node和npm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm推荐"><span class="toc-number">1.1.</span> <span class="toc-text"> nvm(推荐)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew"><span class="toc-number">1.2.</span> <span class="toc-text"> Homebrew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#官网安装"><span class="toc-number">1.3.</span> <span class="toc-text"> 官网安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.</span> <span class="toc-text"> 安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装hexo"><span class="toc-number">3.</span> <span class="toc-text"> 安装Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建站"><span class="toc-number">3.1.</span> <span class="toc-text"> 建站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">3.2.</span> <span class="toc-text"> 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-number">3.3.</span> <span class="toc-text"> 基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#写作"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 写作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#front-matter"><span class="toc-number">3.3.2.</span> <span class="toc-text"> Front-matter</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件及主题的使用"><span class="toc-number">3.4.</span> <span class="toc-text"> 插件及主题的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在github创建仓库并开启github-pages"><span class="toc-number">4.</span> <span class="toc-text"> 在Github创建仓库并开启GitHub Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置hexo将博客部署到github上"><span class="toc-number">4.1.</span> <span class="toc-text"> 配置Hexo,将博客部署到GitHub上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将你的域名解析到github-pages"><span class="toc-number">4.2.</span> <span class="toc-text"> 将你的域名解析到Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo插件"><span class="toc-number">5.</span> <span class="toc-text"> 使用Hexo插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo主题"><span class="toc-number">5.1.</span> <span class="toc-text"> Hexo主题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主题配置"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 主题配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开启本地搜索"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 开启本地搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#站点计数插件hexo-wordcount"><span class="toc-number">5.2.</span> <span class="toc-text"> 站点计数插件(hexo-wordcount)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨站文章推荐插件hexo-recommended-posts"><span class="toc-number">5.3.</span> <span class="toc-text"> 跨站文章推荐插件(hexo-recommended-posts)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地搜索插件hexo-generator-search"><span class="toc-number">5.4.</span> <span class="toc-text"> 本地搜索插件(hexo-generator-search)</span></a></li></ol></li></ol>
+    </div>
   </span>
 </div>
 
@@ -191,7 +191,7 @@
 <h2 id="安装hexo"><a class="markdownIt-Anchor" href="#安装hexo"></a> 安装Hexo</h2>
 <p>使用下面的命令检查npm/node/git是否安装:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm -v </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> node -v</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git --version</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/1.png" alt=""><br>
+<p><img src="/1.png" alt=""><br>
 若你已经拥有了<a href="#%E5%AE%89%E8%A3%85node%E5%92%8Cnpm">node</a>和<a href="#%E5%AE%89%E8%A3%85git">git</a>只需运行<code>$ npm install -g hexo-cli</code>即可</p>
 <h3 id="建站"><a class="markdownIt-Anchor" href="#建站"></a> 建站</h3>
 <p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p>
@@ -215,13 +215,13 @@
 <p><a href="#%E4%BD%BF%E7%94%A8Hexo%E6%8F%92%E4%BB%B6">本文链接</a></p>
 <h2 id="在github创建仓库并开启github-pages"><a class="markdownIt-Anchor" href="#在github创建仓库并开启github-pages"></a> 在Github创建仓库并开启GitHub Pages</h2>
 <p><a href="https://github.com/new" target="_blank" rel="noopener">创建仓库页面</a>填写 <strong>Repository name</strong> 如: <strong><a href="http://xiaohundun.github.io" target="_blank" rel="noopener">xiaohundun.github.io</a></strong><br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/2.png" alt=""><br>
+<img src="/2.png" alt=""><br>
 点击Create repository即可,之后进入自己刚刚创建的仓库,点击上方的Settings进入设置页面:<br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/3.png" alt=""><br>
+<img src="/3.png" alt=""><br>
 往下拉看到<br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/5.png" alt=""><br>
+<img src="/5.png" alt=""><br>
 选择Source为Master Branch之后点击保存即可,之后你可能会看到这样的画面<br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/4.png" alt=""><br>
+<img src="/4.png" alt=""><br>
 GitHub会提示你GitHub Pages是否已经搭建好以及发布到的地址<br>
 不过上图中是我的域名解析到了GitHub Pages,这在下面会介绍到<br>
 还没配置解析时,<a href="http://xn--username-im2mp96j6qrpz8b4c6c.github.io" target="_blank" rel="noopener">你的应该是username.github.io</a>,访问以下试试吧</p>
@@ -231,22 +231,22 @@ GitHub会提示你GitHub Pages是否已经搭建好以及发布到的地址<br>
 <p>其中<code>type: git</code>说明是使用git部署,不过要正常使用你需要先安装一个插件,这很简单,只需</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
 <p>其中的repo地址是你刚刚创建的仓库地址,如下图获取<br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/6.png" alt=""><br>
+<img src="/6.png" alt=""><br>
 上面的配置中我使用的是SSH,如果你需要使用SSH参考<a href="https://www.jianshu.com/p/a422eb2bb8e2" target="_blank" rel="noopener">这篇文章</a><br>
 之后你只要使用 <code>hexo g -d</code> 即可完成生成及部署<br>
 部署完成后访问你的**Github Pages&lt;<a href="http://xiaohundun.github.io" target="_blank" rel="noopener">username.github.io</a>&gt;**查看效果</p>
 <h3 id="将你的域名解析到github-pages"><a class="markdownIt-Anchor" href="#将你的域名解析到github-pages"></a> 将你的域名解析到Github Pages</h3>
 <p>我是在阿里购买的域名,所以下面介绍在阿里云管理控制台添加解析<br>
 进入<a href="https://dc.console.aliyun.com/next/index#/domain/list/all-domain" target="_blank" rel="noopener">阿里云管理控制台</a>点击你域名后的解析<br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/7.png" alt=""><br>
+<img src="/7.png" alt=""><br>
 点击解析进入解析设置页面,点击添加记录,添加下图第二、三条记录即可(<em>这样添加或不添加www都可访问</em>)<br>
-<img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/8.png" alt=""></p>
+<img src="/8.png" alt=""></p>
 <blockquote>
 <p>第一条记录是解析到百度资源,第二条是解析www域名前缀,第三条的@就是直接解析主域名无前缀</p>
 </blockquote>
 <p>解析记录已经添加完毕,因为我们选择的记录类型是CNAME,所以我们要在本地Hexo博客source根目录下创建CNAME文件(<em>注意:无后缀</em>),并将域名写入文件中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch CNAME</span><br><span class="line">$ vim CNAME</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/9.png" alt=""><br>
+<p><img src="/9.png" alt=""><br>
 添加你的域名之后保存退出,之后使用 <code>$ hexo g -d</code> 生成并发布,检查Github仓库根目录是否存在CNAME,若存在访问域名测试<br>
 如果你走到这里都没有问题的话那么恭喜你博客已经搭建成功啦😉<br>
 为了更好地使用Hexo,你可以接着阅读下面的插件使用😉</p>
@@ -287,8 +287,8 @@ GitHub会提示你GitHub Pages是否已经搭建好以及发布到的地址<br>
 <h3 id="本地搜索插件hexo-generator-search"><a class="markdownIt-Anchor" href="#本地搜索插件hexo-generator-search"></a> 本地搜索插件(<a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener">hexo-generator-search</a>)</h3>
 <p>运行<code>$ npm install hexo-generator-search --save</code>安装<br>
 cactus主题使用方法<a href="#%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2">本地搜索</a></p>
-<p>本文链接 <a href="http://elegantme.cn/2018/11/09/Mac%E4%B8%8BHexo-Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E3%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E3%80%81hexo%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/</a> 转载请标明出处</p>
-<div><h1>推荐文章<span style="font-size:0.45em; color:gray">（由<a href="https://github.com/huiwang/hexo-recommended-posts">hexo文章推荐插件</a>驱动）</span></h1><ul><li><a href="http://elegantme.cn/2018/11/08/hello-world/">Hello World</a></li><li><a href="https://hjptriplebee.github.io/hexo的SEO方法.html/">hexo的SEO方法</a></li></ul></div>
+<p>本文链接 <a href="http://elegantme.cn/Mac%E4%B8%8BHexo-Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E3%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E3%80%81hexo%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8">http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用</a> 转载请标明出处</p>
+
   </div>
    <div>本篇文章<span class="post-count">2.3k</span>字</div>
    <div>你已阅读<span class="post-count">9</span>分钟</div>
@@ -323,21 +323,21 @@ cactus主题使用方法<a href="#%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装node和npm"><span class="toc-number">1.</span> <span class="toc-text"> 安装node和npm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm推荐"><span class="toc-number">1.1.</span> <span class="toc-text"> nvm(推荐)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew"><span class="toc-number">1.2.</span> <span class="toc-text"> Homebrew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#官网安装"><span class="toc-number">1.3.</span> <span class="toc-text"> 官网安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.</span> <span class="toc-text"> 安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装hexo"><span class="toc-number">3.</span> <span class="toc-text"> 安装Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建站"><span class="toc-number">3.1.</span> <span class="toc-text"> 建站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">3.2.</span> <span class="toc-text"> 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-number">3.3.</span> <span class="toc-text"> 基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#写作"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 写作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#front-matter"><span class="toc-number">3.3.2.</span> <span class="toc-text"> Front-matter</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件及主题的使用"><span class="toc-number">3.4.</span> <span class="toc-text"> 插件及主题的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在github创建仓库并开启github-pages"><span class="toc-number">4.</span> <span class="toc-text"> 在Github创建仓库并开启GitHub Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置hexo将博客部署到github上"><span class="toc-number">4.1.</span> <span class="toc-text"> 配置Hexo,将博客部署到GitHub上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将你的域名解析到github-pages"><span class="toc-number">4.2.</span> <span class="toc-text"> 将你的域名解析到Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo插件"><span class="toc-number">5.</span> <span class="toc-text"> 使用Hexo插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo主题"><span class="toc-number">5.1.</span> <span class="toc-text"> Hexo主题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主题配置"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 主题配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开启本地搜索"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 开启本地搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#站点计数插件hexo-wordcount"><span class="toc-number">5.2.</span> <span class="toc-text"> 站点计数插件(hexo-wordcount)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨站文章推荐插件hexo-recommended-posts"><span class="toc-number">5.3.</span> <span class="toc-text"> 跨站文章推荐插件(hexo-recommended-posts)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地搜索插件hexo-generator-search"><span class="toc-number">5.4.</span> <span class="toc-text"> 本地搜索插件(hexo-generator-search)</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">推荐文章（由hexo文章推荐插件驱动）</span></a>
-    </li></div>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装node和npm"><span class="toc-number">1.</span> <span class="toc-text"> 安装node和npm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm推荐"><span class="toc-number">1.1.</span> <span class="toc-text"> nvm(推荐)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew"><span class="toc-number">1.2.</span> <span class="toc-text"> Homebrew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#官网安装"><span class="toc-number">1.3.</span> <span class="toc-text"> 官网安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.</span> <span class="toc-text"> 安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装hexo"><span class="toc-number">3.</span> <span class="toc-text"> 安装Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建站"><span class="toc-number">3.1.</span> <span class="toc-text"> 建站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">3.2.</span> <span class="toc-text"> 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-number">3.3.</span> <span class="toc-text"> 基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#写作"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 写作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#front-matter"><span class="toc-number">3.3.2.</span> <span class="toc-text"> Front-matter</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件及主题的使用"><span class="toc-number">3.4.</span> <span class="toc-text"> 插件及主题的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在github创建仓库并开启github-pages"><span class="toc-number">4.</span> <span class="toc-text"> 在Github创建仓库并开启GitHub Pages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置hexo将博客部署到github上"><span class="toc-number">4.1.</span> <span class="toc-text"> 配置Hexo,将博客部署到GitHub上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将你的域名解析到github-pages"><span class="toc-number">4.2.</span> <span class="toc-text"> 将你的域名解析到Github Pages</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo插件"><span class="toc-number">5.</span> <span class="toc-text"> 使用Hexo插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo主题"><span class="toc-number">5.1.</span> <span class="toc-text"> Hexo主题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主题配置"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 主题配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开启本地搜索"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 开启本地搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#站点计数插件hexo-wordcount"><span class="toc-number">5.2.</span> <span class="toc-text"> 站点计数插件(hexo-wordcount)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨站文章推荐插件hexo-recommended-posts"><span class="toc-number">5.3.</span> <span class="toc-text"> 跨站文章推荐插件(hexo-recommended-posts)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地搜索插件hexo-generator-search"><span class="toc-number">5.4.</span> <span class="toc-text"> 本地搜索插件(hexo-generator-search)</span></a></li></ol></li></ol>
+    </div>
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&text=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&is_video=false&description=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&body=Check out this article: http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/2018/11/09/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/&name=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&text=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&is_video=false&description=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&body=Check out this article: http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&title=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用&name=Mac下Hexo+Github搭建博客、域名解析、hexo插件安装使用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -374,7 +374,7 @@ cactus主题使用方法<a href="#%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%
       </ul>
     </nav>
   </div>
-  本站文章共<span class="post-count">2.5k</span>字
+  本站文章共<span class="post-count">2.4k</span>字
 </footer>
 
     </div>
