@@ -397,7 +397,7 @@ body abbr {
 body ul,
 body ol,
 body dl {
-  line-height: 1.725;
+  line-height: 1.85;
 }
 body ul ul,
 body ol ul,
@@ -484,13 +484,13 @@ html {
 }
 body {
   height: 100%;
-  background-color: #1d1f21;
+  background-color: #2a2e2e;
   color: #c9cacc;
   font-display: swap;
   font-weight: 400;
   font-size: 14px;
   font-family: "Menlo", "Meslo LG", monospace;
-  line-height: 1.725;
+  line-height: 1.85;
   text-rendering: geometricPrecision;
   flex: 1;
   -moz-osx-font-smoothing: grayscale;
@@ -517,7 +517,7 @@ body {
 .content a {
   color: #c9cacc;
   text-decoration: none;
-  background-image: linear-gradient(transparent, transparent 5px, #c9cacc 5px, #c9cacc);
+  background-image: linear-gradient(transparent, transparent 5px, #247050 5px, #247050);
   background-position: bottom;
   background-size: 100% 6px;
   background-repeat: repeat-x;
@@ -917,8 +917,8 @@ body {
   left: 0;
   z-index: 5000000;
   width: 100%;
-  border-top: 1px solid #666;
-  background: #212326;
+  border-top: 1px solid rgba(43,188,138,0.549);
+  background: #2e3232;
   transition: opacity 0.2s;
 }
 #footer-post a {
@@ -935,7 +935,7 @@ body {
 #footer-post #nav-footer {
   padding-right: 1rem;
   padding-left: 1rem;
-  background: #323539;
+  background: #3e4444;
   text-align: center;
 }
 #footer-post #nav-footer a {
@@ -979,7 +979,7 @@ body {
 #footer-post #share-footer {
   padding-right: 1rem;
   padding-left: 1rem;
-  background: #323539;
+  background: #3e4444;
   text-align: center;
 }
 #footer-post #share-footer ul {
@@ -999,7 +999,7 @@ body {
   clear: both;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background: #323539;
+  background: #3e4444;
   text-align: left;
 }
 #footer-post #toc-footer ol {
@@ -1260,7 +1260,7 @@ article .content .caption {
 #footer li {
   display: inline-block;
   margin-right: 15px;
-  border-right: 1px solid #666;
+  border-right: 1px solid rgba(43,188,138,0.549);
   vertical-align: middle;
 }
 #footer li a {
@@ -1332,7 +1332,7 @@ article .content .caption {
   outline: none;
   border: solid 1px #ccc;
   border-radius: 5px;
-  background-color: #1d1f21;
+  background-color: #2a2e2e;
   color: #c9cacc;
   font-size: 1.2rem;
   -webkit-border-radius: 5px;
@@ -1397,7 +1397,7 @@ article .content .caption {
 }
 .highlight {
   background: #474949;
-  color: #d1d9e1;
+  color: rgba(245,222,179,0.749);
 }
 .highlight .code .comment,
 .highlight .code .quote {
@@ -1462,7 +1462,7 @@ pre {
   overflow-x: auto;
   padding: 10px 15px;
   padding-bottom: 0;
-  border: 1px dotted #666;
+  border: 1px dotted rgba(43,188,138,0.549);
   border-radius: 4px;
   font-size: 13px;
   font-family: "Menlo", "Meslo LG", monospace;
@@ -1475,17 +1475,19 @@ pre code {
   border: none;
 }
 code {
-  padding: 0 5px;
-  border: 1px dotted #666;
+  padding: 2px 8px;
   border-radius: 2px;
   -webkit-border-radius: 2px;
+  margin: 0 5px;
+  background: #f9e3e1;
+  color: #d95255;
 }
 .highlight {
   overflow-x: auto;
   margin: 1rem 0;
   padding: 10px 15px;
   border-radius: 4px;
-  background: #212326;
+  background: #3a4040;
   font-family: "Menlo", "Meslo LG", monospace;
   -webkit-border-radius: 4px;
 }

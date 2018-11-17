@@ -2,6 +2,6 @@
 User-agent: *
 
 
-Sitemap: https://xiaohundun.github.io/search.xml
-Sitemap: https://xiaohundun.github.io/sitemap.xml
-Sitemap: https://xiaohundun.github.io/baidusitemap.xml
+Sitemap: https://elegantme.cn/search.xml
+Sitemap: https://elegantme.cn/sitemap.xml
+Sitemap: https://elegantme.cn/baidusitemap.xml

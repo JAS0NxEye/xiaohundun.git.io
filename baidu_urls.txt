@@ -1,3 +1,4 @@
+http://elegantme.cn/Hexo进行简单的SEO优化/
 http://elegantme.cn/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/
 http://elegantme.cn/关于Disqus评论功能/
 http://elegantme.cn/hello-world/
