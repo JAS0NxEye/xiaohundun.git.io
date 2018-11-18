@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta name="google-site-verification" content="B8rnJ7lT52074wiXfBUlgTf5PiOM5P5hi_bJNV0n3yg">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="SB提供了内嵌Servlet容器并且提供了非常简单的应用启动方式–SpringApplication#run() 在任意的main方法中使用SpringApplication#run()即可完成应用的引导和启动. 那么接下来为大家介绍一下它是如何启动的,它都做了些什么. 默认情况下引导和启动应用的步骤如下:  创建合适的ApplicationContext(这取决于你的classpath–WebA">
+<meta name="keywords" content="Spring-boot,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-Boot启动类SpringApplication解析">
+<meta property="og:url" content="http://elegantme.cn/Spring-Boot启动类SpringApplication解析/index.html">
+<meta property="og:site_name" content="xiaohundun的博客 分享-学习-有趣的灵魂">
+<meta property="og:description" content="SB提供了内嵌Servlet容器并且提供了非常简单的应用启动方式–SpringApplication#run() 在任意的main方法中使用SpringApplication#run()即可完成应用的引导和启动. 那么接下来为大家介绍一下它是如何启动的,它都做了些什么. 默认情况下引导和启动应用的步骤如下:  创建合适的ApplicationContext(这取决于你的classpath–WebA">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-11-18T10:37:26.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-Boot启动类SpringApplication解析">
+<meta name="twitter:description" content="SB提供了内嵌Servlet容器并且提供了非常简单的应用启动方式–SpringApplication#run() 在任意的main方法中使用SpringApplication#run()即可完成应用的引导和启动. 那么接下来为大家介绍一下它是如何启动的,它都做了些什么. 默认情况下引导和启动应用的步骤如下:  创建合适的ApplicationContext(这取决于你的classpath–WebA">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Spring-Boot启动类SpringApplication解析</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/xiaohundun">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/Hexo进行简单的SEO优化/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&text=Spring-Boot启动类SpringApplication解析"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&is_video=false&description=Spring-Boot启动类SpringApplication解析"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring-Boot启动类SpringApplication解析&body=Check out this article: http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&name=Spring-Boot启动类SpringApplication解析&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Spring-Boot启动类SpringApplication解析
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">xiaohundun的博客 分享-学习-有趣的灵魂</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-11-18T06:50:07.000Z" itemprop="datePublished">2018-11-18</time>
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Spring-boot/">Spring-boot</a>, <a class="tag-link" href="/tags/java/">java</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>SB提供了内嵌Servlet容器并且提供了非常简单的应用启动方式–SpringApplication#run()<br>
+在任意的main方法中使用SpringApplication#run()即可完成应用的引导和启动.<br>
+那么接下来为大家介绍一下它是如何启动的,它都做了些什么.</p>
+<p>默认情况下引导和启动应用的步骤如下:</p>
+<ol>
+<li>创建合适的ApplicationContext(这取决于你的classpath–<code>WebApplicationType.deduceFromClassPath</code>从classpath推断应用类型,这将在下面代码中介绍到)</li>
+<li>注册CommandLinePropertySource用来暴露命令行参数(command line arguments)和Spring properties</li>
+<li>刷新ApplicationContext,loading所有单例bean</li>
+<li>触发所有的CommandLineRunner beans</li>
+</ol>
+<p>大多数情况下我们在main方法中是这样引导和启动应用的:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">     SpringApplication.run(MyApplication.class, args);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你还可以创建SpringApplication实例,并调用run方法.<br>
+你还可以直接使用SpringApplication中的main方法启动</p>
+</blockquote>
+<p>通过SpringApplication的<a name="静态run方法">静态run方法</a>,那我们接着来看下这个静态方法做了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(Class&lt;?&gt;[] primarySources,</span></span></span><br><span class="line"><span class="function"><span class="params">            String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SpringApplication(primarySources).run(args);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>没错~它创建了一个SpringApplication实例并调用了实例中的公有run方法,并将main方法的参数传递过去(这些参数将会用来运行CommandLineRunner beans)<br>
+我们进去实例方法中看一下做了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringApplication</span><span class="params">(Class&lt;?&gt;... primarySources)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">null</span>, primarySources);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个<a name="重载函数">重载函数</a>,它最终会进入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">SpringApplication</span><span class="params">(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</span><br><span class="line">        Assert.notNull(primarySources, <span class="string">"PrimarySources must not be null"</span>);</span><br><span class="line">        <span class="keyword">this</span>.primarySources = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(Arrays.asList(primarySources));</span><br><span class="line">        <span class="keyword">this</span>.webApplicationType = WebApplicationType.deduceFromClasspath();</span><br><span class="line">        setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));</span><br><span class="line">        setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));</span><br><span class="line">        <span class="keyword">this</span>.mainApplicationClass = deduceMainApplicationClass();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在第5行我们可以看到上面提到过的应用类型推断函数WebApplicationType.deduceFromClasspath(),具体是如何进行推断的如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> WebApplicationType <span class="title">deduceFromClasspath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ClassUtils.isPresent(WEBFLUX_INDICATOR_CLASS, <span class="keyword">null</span>)</span><br><span class="line">                &amp;&amp; !ClassUtils.isPresent(WEBMVC_INDICATOR_CLASS, <span class="keyword">null</span>)</span><br><span class="line">                &amp;&amp; !ClassUtils.isPresent(JERSEY_INDICATOR_CLASS, <span class="keyword">null</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> WebApplicationType.REACTIVE;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (String className : SERVLET_INDICATOR_CLASSES) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!ClassUtils.isPresent(className, <span class="keyword">null</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> WebApplicationType.NONE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> WebApplicationType.SERVLET;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>例如其中的 <em>WEBFLUX_INDICATOR_CLASS</em> ,它的值是 <code>org.springframework.web.reactive.DispatcherHandler</code>,也就是说系统去尝试加载此类以及其依赖类,如果加载不成功那么它就不是此应用类型<br>
+我们在回到SpringApplication的<a href="#%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0">重载函数</a>观察第6、7行, <em>getSpringFactoriesInstances</em> 是根据指定的类类型从<span style="color:red">META/INF/spring.factories</span>加载bean,也就是说第6、7行加载了初始化类以及监听器,为了更加直观,下面给出spring.factories文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># Application Context Initializers</span><br><span class="line">org.springframework.context.ApplicationContextInitializer=\</span><br><span class="line">org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer,\</span><br><span class="line">org.springframework.boot.context.ContextIdApplicationContextInitializer,\</span><br><span class="line">org.springframework.boot.context.config.DelegatingApplicationContextInitializer,\</span><br><span class="line">org.springframework.boot.web.context.ServerPortInfoApplicationContextInitializer</span><br><span class="line"></span><br><span class="line"># Application Listeners</span><br><span class="line">org.springframework.context.ApplicationListener=\</span><br><span class="line">org.springframework.boot.ClearCachesApplicationListener,\</span><br><span class="line">org.springframework.boot.builder.ParentContextCloserApplicationListener,\</span><br><span class="line">org.springframework.boot.context.FileEncodingApplicationListener,\</span><br><span class="line">org.springframework.boot.context.config.AnsiOutputApplicationListener,\</span><br><span class="line">org.springframework.boot.context.config.ConfigFileApplicationListener,\</span><br><span class="line">org.springframework.boot.context.config.DelegatingApplicationListener,\</span><br><span class="line">org.springframework.boot.context.logging.ClasspathLoggingApplicationListener,\</span><br><span class="line">org.springframework.boot.context.logging.LoggingApplicationListener,\</span><br><span class="line">org.springframework.boot.liquibase.LiquibaseServiceLocatorApplicationListener</span><br></pre></td></tr></table></figure>
+<p>我们在回到SpringApplication的<a href="#%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0">重载函数</a>观察第8行,它从stack trace中推断main方法所在的类并加载返回,<span style="color: red">至此</span>SpringApplication构造器已经完成它的工作,在前面提到的SpringApplication<a href="#%E9%9D%99%E6%80%81run%E6%96%B9%E6%B3%95">静态run方法</a>中已经完成了构造,紧接着就是调用了<a name="run方法">公用run方法</a></p>
+<blockquote>
+<p>方法中多次调用类中他处方法,所以没法通过添加注释说明,导致篇幅可能会有点长或者需要来回滚动,不过主要方法处设置了锚链接,你可以点击跳转.在非run方法中以注释说明,防止结构复杂</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ConfigurableApplicationContext <span class="title">run</span><span class="params">(String... args)</span> </span>&#123;</span><br><span class="line">        StopWatch stopWatch = <span class="keyword">new</span> StopWatch();<span class="comment">//用来计时的</span></span><br><span class="line">        stopWatch.start();</span><br><span class="line">        ConfigurableApplicationContext context = <span class="keyword">null</span>;</span><br><span class="line">        Collection&lt;SpringBootExceptionReporter&gt; exceptionReporters = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        configureHeadlessProperty();</span><br><span class="line">        SpringApplicationRunListeners listeners = getRunListeners(args);</span><br><span class="line">        listeners.starting();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ApplicationArguments applicationArguments = <span class="keyword">new</span> DefaultApplicationArguments(args);</span><br><span class="line">            ConfigurableEnvironment environment = prepareEnvironment(listeners,applicationArguments);</span><br><span class="line">            configureIgnoreBeanInfo(environment);</span><br><span class="line">            Banner printedBanner = printBanner(environment);<span class="comment">//  打印Banner用的对象</span></span><br><span class="line">            context = createApplicationContext();</span><br><span class="line">            exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter.class,<span class="keyword">new</span> Class[] &#123; ConfigurableApplicationContext.class &#125;, context);<span class="comment">// 从spring.facroties加载了 Error Reporters</span></span><br><span class="line">            prepareContext(context, environment, listeners, applicationArguments,printedBanner);</span><br><span class="line">            refreshContext(context);</span><br><span class="line">            afterRefresh(context, applicationArguments);</span><br><span class="line">            stopWatch.stop();<span class="comment">// 表停了</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.logStartupInfo) &#123;<span class="comment">// 记日志</span></span><br><span class="line">                <span class="keyword">new</span> StartupInfoLogger(<span class="keyword">this</span>.mainApplicationClass)</span><br><span class="line">                        .logStarted(getApplicationLog(), stopWatch);</span><br><span class="line">            &#125;</span><br><span class="line">            listeners.started(context);</span><br><span class="line">            callRunners(context, applicationArguments);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">            handleRunFailure(context, ex, exceptionReporters, listeners);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(ex);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            listeners.running(context);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">            handleRunFailure(context, ex, exceptionReporters, <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> context;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>首先在第4行创建了用来返回的可配置应用上下文对象 <em>ConfigurableApplicationContext</em><br>
+在第7行处从spring.factories加载了所有runListeners</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Run Listeners</span><br><span class="line">org.springframework.boot.SpringApplicationRunListener=\</span><br><span class="line">org.springframework.boot.context.event.EventPublishingRunListener</span><br></pre></td></tr></table></figure>
+<p>只有一个,从名字可以看出来它是干嘛用的,没错,用来发布事件用的,继承了SpringRunApplicationListener,内部有类 <code>SimpleApplicationEventMulticaster</code> 用来多路广播事件,事件如下:</p>
+<ol>
+<li>starting 首次调用run方法启动时立即调用</li>
+<li>enviromentPrepared 环境已经准备完毕时调用,ApplicationContext被创建之前</li>
+<li>contextPrepared ApplicationContext被创建且准备完毕调用,在资源加载之前</li>
+<li>contextLoaded 在ApplicationContext加载之后,刷新之前调用</li>
+<li>started 上下文被刷新应用启动完毕调用,但在CommandLineRunners和ApplicationRunners被调用之前</li>
+<li>running 在run方法结束前立即调用,此时应用上下文已被刷新,且CommandLineRunners和ApplicationRunners已被调用</li>
+<li>failed 顾名思义,当启动应用出错时调用</li>
+</ol>
+<blockquote>
+<p>请注意此处的广播事件排序,在run方法启动时会以此顺序发布事件,当然除了fail以外,接下来的分析中将会贯穿这个流程</p>
+</blockquote>
+<p>接着分析<a href="#run%E6%96%B9%E6%B3%95">run方法</a><br>
+刚看完SpringApplicationRunListeners,紧接着<a href="#run%E6%96%B9%E6%B3%95">run方法</a>第8行我们就发现立刻调用了starting()方法发布了 <strong>ApplicationStartingEvent</strong> ,这就对应了我们刚刚说到的starting调用时机,Called immediately when the run method has first started. Can be used for very early initialization.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">starting</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.initialMulticaster.multicastEvent(<span class="keyword">new</span> ApplicationStartingEvent(<span class="keyword">this</span>.application, <span class="keyword">this</span>.args));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  其他事件发布方法同理,不同的只是 事件对象 ,比如这里是ApplicationStartingEvent</span></span><br></pre></td></tr></table></figure>
+<p>之后在<a href="#run%E6%96%B9%E6%B3%95">run方法</a>第11行调用 <em>prepareEnvironment()</em> 创建了应用环境对象,我们来看一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> ConfigurableEnvironment <span class="title">prepareEnvironment</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            SpringApplicationRunListeners listeners,</span></span></span><br><span class="line"><span class="function"><span class="params">            ApplicationArguments applicationArguments)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建和配置应用环境</span></span><br><span class="line">        ConfigurableEnvironment environment = getOrCreateEnvironment();</span><br><span class="line">        configureEnvironment(environment, applicationArguments.getSourceArgs());</span><br><span class="line">        <span class="comment">//  发布enviromentPrepared事件,对应事件顺序2,也就是说环境已经准备完毕,上下文被创建之前</span></span><br><span class="line">        listeners.environmentPrepared(environment);</span><br><span class="line">        <span class="comment">//  将应用环境绑定到SpringApplication</span></span><br><span class="line">        bindToSpringApplication(environment);</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isCustomEnvironment) &#123;</span><br><span class="line">            environment = <span class="keyword">new</span> EnvironmentConverter(getClassLoader())</span><br><span class="line">                    .convertEnvironmentIfNecessary(environment, deduceEnvironmentClass());</span><br><span class="line">        &#125;</span><br><span class="line">        ConfigurationPropertySources.attach(environment);</span><br><span class="line">        <span class="keyword">return</span> environment;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="#run%E6%96%B9%E6%B3%95">run方法</a>第14行调用了 <em>createApplicationContext()</em> 方法根据应用类型创建了对应的默认应用上下文对象,如 SERVLET 类型将创建 <code>org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> ConfigurableApplicationContext <span class="title">createApplicationContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Class&lt;?&gt; contextClass = <span class="keyword">this</span>.applicationContextClass;</span><br><span class="line">        <span class="keyword">if</span> (contextClass == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">switch</span> (<span class="keyword">this</span>.webApplicationType) &#123;</span><br><span class="line">                <span class="keyword">case</span> SERVLET:</span><br><span class="line">                    contextClass = Class.forName(DEFAULT_SERVLET_WEB_CONTEXT_CLASS);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> REACTIVE:</span><br><span class="line">                    contextClass = Class.forName(DEFAULT_REACTIVE_WEB_CONTEXT_CLASS);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    contextClass = Class.forName(DEFAULT_CONTEXT_CLASS);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (ClassNotFoundException ex) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</span><br><span class="line">                        <span class="string">"Unable create a default ApplicationContext, "</span></span><br><span class="line">                                + <span class="string">"please specify an ApplicationContextClass"</span>,</span><br><span class="line">                        ex);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (ConfigurableApplicationContext) BeanUtils.instantiateClass(contextClass);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="#run%E6%96%B9%E6%B3%95">run方法</a>第16行调用了 <em>prepareContext()</em> 方法,如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">prepareContext</span><span class="params">(ConfigurableApplicationContext context,</span></span></span><br><span class="line"><span class="function"><span class="params">            ConfigurableEnvironment environment, SpringApplicationRunListeners listeners,</span></span></span><br><span class="line"><span class="function"><span class="params">            ApplicationArguments applicationArguments, Banner printedBanner)</span> </span>&#123;</span><br><span class="line">        context.setEnvironment(environment);<span class="comment">//  填充应用环境到上下文</span></span><br><span class="line">        postProcessApplicationContext(context);<span class="comment">//   应用上下文后处理</span></span><br><span class="line">        applyInitializers(context);<span class="comment">//   运行所有实现了ApplicationContextInitializer的bean(在构造函数中从spring.factories中加载过,也可添加自己的,通过addInitializers方法)</span></span><br><span class="line">        listeners.contextPrepared(context);<span class="comment">//   发布contextPrepared事件,对应事件顺序3</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.logStartupInfo) &#123;</span><br><span class="line">            logStartupInfo(context.getParent() == <span class="keyword">null</span>);</span><br><span class="line">            logStartupProfileInfo(context);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add boot specific singleton beans</span></span><br><span class="line">        <span class="comment">//  注册在run方法中创建了的 ApplicationArguments 的单例</span></span><br><span class="line">        context.getBeanFactory().registerSingleton(<span class="string">"springApplicationArguments"</span>,applicationArguments);</span><br><span class="line">        <span class="keyword">if</span> (printedBanner != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//  注册 Bannner 的单例</span></span><br><span class="line">            context.getBeanFactory().registerSingleton(<span class="string">"springBootBanner"</span>, printedBanner);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Load the sources</span></span><br><span class="line">        Set&lt;Object&gt; sources = getAllSources();<span class="comment">// getAllSource方法返回primarySources(比如静态run方法的入参一)以及sources(应用环境Enviroment中的PropertySource)</span></span><br><span class="line">        Assert.notEmpty(sources, <span class="string">"Sources must not be empty"</span>);</span><br><span class="line">        load(context, sources.toArray(<span class="keyword">new</span> Object[<span class="number">0</span>]));</span><br><span class="line">        listeners.contextLoaded(context);<span class="comment">// 发布contextLoaded事件,对应事件顺序4</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="#run%E6%96%B9%E6%B3%95">run方法</a>第17行调用了 <em>refreshContext()</em> 方法,如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">refreshContext</span><span class="params">(ConfigurableApplicationContext context)</span> </span>&#123;</span><br><span class="line">        refresh(context);<span class="comment">// 其实调用了应用上下文对象的refresh方法,里面做了很多事情</span></span><br><span class="line">        <span class="comment">//如发布上下文更新事件</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.registerShutdownHook) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                context.registerShutdownHook();<span class="comment">// 注册应用关闭钩子,用于清理资源,调用AbstractApplicationContext#doClose()</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (AccessControlException ex) &#123;</span><br><span class="line">                <span class="comment">// Not allowed in some environments.</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="#run%E6%96%B9%E6%B3%95">run方法</a>第18行调用了 <em>afterRefresh()</em> 方法,如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  没有默认实现,你可以继承此类并override此方法,比如下下面</span></span><br><span class="line"><span class="comment">//  你可以考虑override更多的方法,来实现自己的逻辑或者控制</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">afterRefresh</span><span class="params">(ConfigurableApplicationContext context,</span></span></span><br><span class="line"><span class="function"><span class="params">            ApplicationArguments args)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpringApplication</span> <span class="keyword">extends</span> <span class="title">SpringApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(MySpringApplication.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">afterRefresh</span><span class="params">(ConfigurableApplicationContext context, ApplicationArguments args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.afterRefresh(context, args);</span><br><span class="line">        logger.info(<span class="string">"[Spring application refreshed]"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MySpringApplication</span><span class="params">(Class&lt;?&gt;... primarySources)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(primarySources);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="#run%E6%96%B9%E6%B3%95">run方法</a>第24行发布了 <strong>ApplicationStartedEvent</strong> 事件,<code>listeners.started(context);</code>,对应事件顺序5<br>
+<a href="#run%E6%96%B9%E6%B3%95">run方法</a>第25行调用了 <em>callRunners()</em> 方法,如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">callRunners</span><span class="params">(ApplicationContext context, ApplicationArguments args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//  调用所有的CommandLineRunners和ApplicationRunners</span></span><br><span class="line">        List&lt;Object&gt; runners = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        runners.addAll(context.getBeansOfType(ApplicationRunner.class).values());</span><br><span class="line">        runners.addAll(context.getBeansOfType(CommandLineRunner.class).values());</span><br><span class="line">        AnnotationAwareOrderComparator.sort(runners);</span><br><span class="line">        <span class="keyword">for</span> (Object runner : <span class="keyword">new</span> LinkedHashSet&lt;&gt;(runners)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (runner <span class="keyword">instanceof</span> ApplicationRunner) &#123;</span><br><span class="line">                callRunner((ApplicationRunner) runner, args);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (runner <span class="keyword">instanceof</span> CommandLineRunner) &#123;</span><br><span class="line">                callRunner((CommandLineRunner) runner, args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="#run%E6%96%B9%E6%B3%95">run方法</a>第33行发布了 <strong>ApplicationReadyEvent</strong> 事件,<code>listeners.running(context);</code>,对应事件顺序6</p>
+<p>最后没错的话返回上下文对象,应用启动完毕.</p>
+<p>文中提到的ApplicationContextInitializer</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order</span>(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextInit</span> <span class="keyword">implements</span> <span class="title">ApplicationContextInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(ApplicationContextInit.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * spring.factories文件中定义了一系列PropertySource Loaders/Run Listeners/Error Reporters/</span></span><br><span class="line"><span class="comment">     * Application Context Initializers/Application Listeners/Environment Post Processors/</span></span><br><span class="line"><span class="comment">     * Failure Analyzers/FailureAnalysisReporters</span></span><br><span class="line"><span class="comment">     * 1.可以将此类加在spring.factories中的Application Context Initializers后启用(对所有应用生效)</span></span><br><span class="line"><span class="comment">     * 2.calling addInitializers() on SpringApplication before run it(对当前应用生效)</span></span><br><span class="line"><span class="comment">     * 3.通过配置context.initializer.classes(对当前应用生效)</span></span><br><span class="line"><span class="comment">     * 以上配置适用于listeners</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> configurableApplicationContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(ConfigurableApplicationContext configurableApplicationContext)</span> </span>&#123;</span><br><span class="line">        ConfigurableEnvironment environment = configurableApplicationContext.getEnvironment();</span><br><span class="line">        Map&lt;String, Object&gt; systemEnvironment = environment.getSystemEnvironment();</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : systemEnvironment.entrySet()) &#123;</span><br><span class="line">            logger.info(entry.getKey() + <span class="string">":"</span> + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本文链接 <a href="http://elegantme.cn/Spring-Boot%E5%90%AF%E5%8A%A8%E7%B1%BBSpringApplication%E8%A7%A3%E6%9E%90/">http://elegantme.cn/Spring-Boot启动类SpringApplication解析/</a> 转载请标明出处</p>
+
+  </div>
+  
+    <!-- 添加捐赠图标 -->
+<div class="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           ↑<br>
+           如果觉得不错,就稍稍给个鼓励吧~
+        </span>
+        <br>
+      </div>  
+    <div id="donate_guide" class="donate_bar center hidden">
+        <!-- 支付宝打赏图案 -->
+        <img src="/images/Alipay.jpg" alt="支付宝打赏">
+        <!-- 微信打赏图案 -->
+        <img src="/images/WeChatpay.jpg" alt="微信打赏">
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            $('#donate_board').addClass('hidden');
+            $('#donate_guide').removeClass('hidden');
+        }
+    </script>
+</div>
+<!-- 添加捐赠图标 -->
+  
+   <div>本篇文章<span class="post-count">2.4k</span>字</div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/xiaohundun">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&text=Spring-Boot启动类SpringApplication解析"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&is_video=false&description=Spring-Boot启动类SpringApplication解析"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring-Boot启动类SpringApplication解析&body=Check out this article: http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&name=Spring-Boot启动类SpringApplication解析&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 xiaohundun
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/xiaohundun">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+  本站文章共<span class="post-count">6.2k</span>字
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-128998234-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xiaohundun';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
