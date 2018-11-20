@@ -11,7 +11,7 @@
 <meta name="keywords" content="Spring-boot,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring-Boot启动类SpringApplication解析">
-<meta property="og:url" content="http://elegantme.cn/Spring-Boot启动类SpringApplication解析/index.html">
+<meta property="og:url" content="http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/index.html">
 <meta property="og:site_name" content="xiaohundun的博客 分享-学习-有趣的灵魂">
 <meta property="og:description" content="SB提供了内嵌Servlet容器并且提供了非常简单的应用启动方式–SpringApplication#run() 在任意的main方法中使用SpringApplication#run()即可完成应用的引导和启动. 那么接下来为大家介绍一下它是如何启动的,它都做了些什么. 默认情况下引导和启动应用的步骤如下:  创建合适的ApplicationContext(这取决于你的classpath–WebA">
 <meta property="og:locale" content="zh">
@@ -90,21 +90,21 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&text=Spring-Boot启动类SpringApplication解析"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&is_video=false&description=Spring-Boot启动类SpringApplication解析"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Spring-Boot启动类SpringApplication解析&body=Check out this article: http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&name=Spring-Boot启动类SpringApplication解析&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&text=Spring-Boot启动类SpringApplication解析"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&is_video=false&description=Spring-Boot启动类SpringApplication解析"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring-Boot启动类SpringApplication解析&body=Check out this article: http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&name=Spring-Boot启动类SpringApplication解析&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">推荐文章（由hexo文章推荐插件驱动）</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -214,8 +214,8 @@
 <p>最后没错的话返回上下文对象,应用启动完毕.</p>
 <p>文中提到的ApplicationContextInitializer</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Order</span>(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextInit</span> <span class="keyword">implements</span> <span class="title">ApplicationContextInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LogManager.getLogger(ApplicationContextInit.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * spring.factories文件中定义了一系列PropertySource Loaders/Run Listeners/Error Reporters/</span></span><br><span class="line"><span class="comment">     * Application Context Initializers/Application Listeners/Environment Post Processors/</span></span><br><span class="line"><span class="comment">     * Failure Analyzers/FailureAnalysisReporters</span></span><br><span class="line"><span class="comment">     * 1.可以将此类加在spring.factories中的Application Context Initializers后启用(对所有应用生效)</span></span><br><span class="line"><span class="comment">     * 2.calling addInitializers() on SpringApplication before run it(对当前应用生效)</span></span><br><span class="line"><span class="comment">     * 3.通过配置context.initializer.classes(对当前应用生效)</span></span><br><span class="line"><span class="comment">     * 以上配置适用于listeners</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> configurableApplicationContext</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(ConfigurableApplicationContext configurableApplicationContext)</span> </span>&#123;</span><br><span class="line">        ConfigurableEnvironment environment = configurableApplicationContext.getEnvironment();</span><br><span class="line">        Map&lt;String, Object&gt; systemEnvironment = environment.getSystemEnvironment();</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : systemEnvironment.entrySet()) &#123;</span><br><span class="line">            logger.info(entry.getKey() + <span class="string">":"</span> + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>本文链接 <a href="http://elegantme.cn/Spring-Boot%E5%90%AF%E5%8A%A8%E7%B1%BBSpringApplication%E8%A7%A3%E6%9E%90/">http://elegantme.cn/Spring-Boot启动类SpringApplication解析/</a> 转载请标明出处</p>
-
+<p>本文链接 <a href="http://blog.elegantme.cn/Spring-Boot%E5%90%AF%E5%8A%A8%E7%B1%BBSpringApplication%E8%A7%A3%E6%9E%90/">http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/</a> 转载请标明出处</p>
+<div><h1>推荐文章<span style="font-size:0.45em; color:gray">（由<a href="https://github.com/huiwang/hexo-recommended-posts">hexo文章推荐插件</a>驱动）</span></h1><ul><li><a href="http://elegantme.cn/Spring-Boot启动类SpringApplication解析/">Spring-Boot启动类SpringApplication解析</a></li></ul></div>
   </div>
   
     <!-- 添加捐赠图标 -->
@@ -275,21 +275,21 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">推荐文章（由hexo文章推荐插件驱动）</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&text=Spring-Boot启动类SpringApplication解析"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&is_video=false&description=Spring-Boot启动类SpringApplication解析"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Spring-Boot启动类SpringApplication解析&body=Check out this article: http://elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://elegantme.cn/Spring-Boot启动类SpringApplication解析/&name=Spring-Boot启动类SpringApplication解析&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&text=Spring-Boot启动类SpringApplication解析"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&is_video=false&description=Spring-Boot启动类SpringApplication解析"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring-Boot启动类SpringApplication解析&body=Check out this article: http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&title=Spring-Boot启动类SpringApplication解析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/&name=Spring-Boot启动类SpringApplication解析&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -326,7 +326,7 @@
       </ul>
     </nav>
   </div>
-  本站文章共<span class="post-count">6.2k</span>字
+  本站文章共<span class="post-count">6.3k</span>字
 </footer>
 
     </div>
