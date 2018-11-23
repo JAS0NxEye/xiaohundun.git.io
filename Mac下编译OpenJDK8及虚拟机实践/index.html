@@ -10,17 +10,19 @@
     <meta name="description" content="当前环境  Mac 10.14.1 JDK 1.8.0_181   下载源码  去官网下载源码:OpenJDK8下载 当我想要去直接下载压缩包时,网站却遇到技术问题(无法使用),所以我还是用了下面的方法 使用 Mercurial 版本管理工具拉取代码: OpenJDK主页 Homebrew安装  1$ brew install mercurial 拉取项目 123hg clone http://">
 <meta name="keywords" content="OpenJDK8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac下编译OpenJDK8">
-<meta property="og:url" content="http://blog.elegantme.cn/Mac下编译OpenJDK8/index.html">
+<meta property="og:title" content="Mac下编译OpenJDK8及虚拟机实践">
+<meta property="og:url" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/index.html">
 <meta property="og:site_name" content="xiaohundun的博客 分享-学习-有趣的灵魂">
 <meta property="og:description" content="当前环境  Mac 10.14.1 JDK 1.8.0_181   下载源码  去官网下载源码:OpenJDK8下载 当我想要去直接下载压缩包时,网站却遇到技术问题(无法使用),所以我还是用了下面的方法 使用 Mercurial 版本管理工具拉取代码: OpenJDK主页 Homebrew安装  1$ brew install mercurial 拉取项目 123hg clone http://">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8/1.png">
-<meta property="og:updated_time" content="2018-11-21T15:36:47.660Z">
+<meta property="og:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/1.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/2.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/3.png">
+<meta property="og:updated_time" content="2018-11-22T14:23:43.627Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac下编译OpenJDK8">
+<meta name="twitter:title" content="Mac下编译OpenJDK8及虚拟机实践">
 <meta name="twitter:description" content="当前环境  Mac 10.14.1 JDK 1.8.0_181   下载源码  去官网下载源码:OpenJDK8下载 当我想要去直接下载压缩包时,网站却遇到技术问题(无法使用),所以我还是用了下面的方法 使用 Mercurial 版本管理工具拉取代码: OpenJDK主页 Homebrew安装  1$ brew install mercurial 拉取项目 123hg clone http://">
-<meta name="twitter:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8/1.png">
+<meta name="twitter:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/1.png">
     
     
         
@@ -40,7 +42,7 @@
         
     
     <!-- title -->
-    <title>Mac下编译OpenJDK8</title>
+    <title>Mac下编译OpenJDK8及虚拟机实践</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -92,21 +94,21 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&text=Mac下编译OpenJDK8"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&is_video=false&description=Mac下编译OpenJDK8"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&name=Mac下编译OpenJDK8&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&text=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&is_video=false&description=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8及虚拟机实践&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&name=Mac下编译OpenJDK8及虚拟机实践&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#当前环境"><span class="toc-number">1.</span> <span class="toc-text"> 当前环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载源码"><span class="toc-number">2.</span> <span class="toc-text"> 下载源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖"><span class="toc-number">3.</span> <span class="toc-text"> 安装依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#xquartz"><span class="toc-number">3.1.</span> <span class="toc-text"> XQuartz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#freetype"><span class="toc-number">3.2.</span> <span class="toc-text"> freetype</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gun组件"><span class="toc-number">3.3.</span> <span class="toc-text"> GUN组件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进行编译"><span class="toc-number">4.</span> <span class="toc-text"> 进行编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误列表"><span class="toc-number">5.</span> <span class="toc-text"> 错误列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bash-configure过程中可能会遇到的错误"><span class="toc-number">5.1.</span> <span class="toc-text"> bash ./configure过程中可能会遇到的错误:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#make-all过程中可能遇到的错误"><span class="toc-number">5.2.</span> <span class="toc-text"> make all过程中可能遇到的错误:</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#当前环境"><span class="toc-number">1.</span> <span class="toc-text"> 当前环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载源码"><span class="toc-number">2.</span> <span class="toc-text"> 下载源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装依赖"><span class="toc-number">3.</span> <span class="toc-text"> 安装依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xquartz"><span class="toc-number">3.1.</span> <span class="toc-text"> XQuartz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#freetype"><span class="toc-number">3.2.</span> <span class="toc-text"> freetype</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gun组件"><span class="toc-number">3.3.</span> <span class="toc-text"> GUN组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进行编译"><span class="toc-number">4.</span> <span class="toc-text"> 进行编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误列表"><span class="toc-number">5.</span> <span class="toc-text"> 错误列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash-configure过程中可能会遇到的错误"><span class="toc-number">5.1.</span> <span class="toc-text"> bash ./configure过程中可能会遇到的错误:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#make-all过程中可能遇到的错误"><span class="toc-number">5.2.</span> <span class="toc-text"> make all过程中可能遇到的错误:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟机实践"><span class="toc-number">6.</span> <span class="toc-text"> 虚拟机实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">6.1.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">6.1.1.</span> <span class="toc-text"> Heap OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈vm-stack及本地方法栈native-method-stack-stackoverflowerror"><span class="toc-number">6.2.</span> <span class="toc-text"> 虚拟机栈(VM Stack)及本地方法栈(Native Method Stack) StackOverFlowError</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -118,7 +120,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        Mac下编译OpenJDK8
+        Mac下编译OpenJDK8及虚拟机实践
     </h1>
 
 
@@ -147,12 +149,12 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h3 id="当前环境"><a class="markdownIt-Anchor" href="#当前环境"></a> 当前环境</h3>
+    <h2 id="当前环境"><a class="markdownIt-Anchor" href="#当前环境"></a> 当前环境</h2>
 <ol>
 <li>Mac 10.14.1</li>
 <li>JDK 1.8.0_181</li>
 </ol>
-<h3 id="下载源码"><a class="markdownIt-Anchor" href="#下载源码"></a> 下载源码</h3>
+<h2 id="下载源码"><a class="markdownIt-Anchor" href="#下载源码"></a> 下载源码</h2>
 <ul>
 <li>去官网下载源码:<a href="http://download.java.net/openjdk/jdk8/" target="_blank" rel="noopener">OpenJDK8下载</a><br>
 当我想要去直接下载压缩包时,网站却遇到技术问题(无法使用),所以我还是用了下面的方法</li>
@@ -162,21 +164,21 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install mercurial</span><br></pre></td></tr></table></figure>
 <p>拉取项目</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hg <span class="built_in">clone</span> http://hg.openjdk.java.net/jdk8/jdk8 jdk8</span><br><span class="line"><span class="built_in">cd</span> jdk8</span><br><span class="line">bash ./get_source.sh</span><br></pre></td></tr></table></figure>
-<p><img src="/Mac下编译OpenJDK8/1.png" alt=""></p>
-<h3 id="安装依赖"><a class="markdownIt-Anchor" href="#安装依赖"></a> 安装依赖</h3>
+<p><img src="/Mac下编译OpenJDK8及虚拟机实践/1.png" alt=""></p>
+<h2 id="安装依赖"><a class="markdownIt-Anchor" href="#安装依赖"></a> 安装依赖</h2>
 <blockquote>
 <p>使用clang编译器,不需要下载xcode</p>
 </blockquote>
-<h4 id="xquartz"><a class="markdownIt-Anchor" href="#xquartz"></a> XQuartz</h4>
+<h3 id="xquartz"><a class="markdownIt-Anchor" href="#xquartz"></a> XQuartz</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install XQuartz</span><br></pre></td></tr></table></figure>
-<h4 id="freetype"><a class="markdownIt-Anchor" href="#freetype"></a> freetype</h4>
+<h3 id="freetype"><a class="markdownIt-Anchor" href="#freetype"></a> freetype</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install freetype</span><br></pre></td></tr></table></figure>
-<h4 id="gun组件"><a class="markdownIt-Anchor" href="#gun组件"></a> GUN组件</h4>
+<h3 id="gun组件"><a class="markdownIt-Anchor" href="#gun组件"></a> GUN组件</h3>
 <blockquote>
 <p>注意:在接下来的编译过程中,若不需要开启调试,不需要安装此组件</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install binutils</span><br></pre></td></tr></table></figure>
-<h3 id="进行编译"><a class="markdownIt-Anchor" href="#进行编译"></a> 进行编译</h3>
+<h2 id="进行编译"><a class="markdownIt-Anchor" href="#进行编译"></a> 进行编译</h2>
 <ol>
 <li>确保你在jdk8目录中</li>
 <li>运行 ./configure<br>
@@ -204,14 +206,14 @@
 成功信息</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Finished docs (build time 00:01:06)</span></span><br><span class="line"></span><br><span class="line">----- Build <span class="built_in">times</span> -------</span><br><span class="line">Start 2018-11-21 23:25:14</span><br><span class="line">End   2018-11-21 23:31:22</span><br><span class="line">00:00:12 corba</span><br><span class="line">00:00:20 demos</span><br><span class="line">00:01:06 docs</span><br><span class="line">00:01:25 hotspot</span><br><span class="line">00:00:39 images</span><br><span class="line">00:00:08 jaxp</span><br><span class="line">00:00:13 jaxws</span><br><span class="line">00:01:41 jdk</span><br><span class="line">00:00:18 langtools</span><br><span class="line">00:00:06 nashorn</span><br><span class="line">00:06:08 TOTAL</span><br><span class="line">-------------------------</span><br><span class="line">Finished building OpenJDK <span class="keyword">for</span> target <span class="string">'all'</span></span><br></pre></td></tr></table></figure>
 <p>期间应该会碰到一些错误,请参考下面的错误列表</p>
-<h3 id="错误列表"><a class="markdownIt-Anchor" href="#错误列表"></a> 错误列表</h3>
-<h4 id="bash-configure过程中可能会遇到的错误"><a class="markdownIt-Anchor" href="#bash-configure过程中可能会遇到的错误"></a> bash ./configure过程中可能会遇到的错误:</h4>
+<h2 id="错误列表"><a class="markdownIt-Anchor" href="#错误列表"></a> 错误列表</h2>
+<h3 id="bash-configure过程中可能会遇到的错误"><a class="markdownIt-Anchor" href="#bash-configure过程中可能会遇到的错误"></a> bash ./configure过程中可能会遇到的错误:</h3>
 <ol>
 <li>解决错误</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: GCC compiler is required</span><br></pre></td></tr></table></figure>
 <p>编辑 <code>comman/autoconf/generated-configure.sh</code>,注释第20061，21640行</p>
-<h4 id="make-all过程中可能遇到的错误"><a class="markdownIt-Anchor" href="#make-all过程中可能遇到的错误"></a> make all过程中可能遇到的错误:</h4>
+<h3 id="make-all过程中可能遇到的错误"><a class="markdownIt-Anchor" href="#make-all过程中可能遇到的错误"></a> make all过程中可能遇到的错误:</h3>
 <ol>
 <li>解决错误</li>
 </ol>
@@ -242,7 +244,40 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-cp &quot;$(NASHORN_OUTPUTDIR)/nasgen_classes$(PATH_SEP)$(NASHORN_OUTPUTDIR)/nashorn_classes&quot; \</span><br></pre></td></tr></table></figure>
 <p>修改后</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xbootclasspath/p:&quot;$(NASHORN_OUTPUTDIR)/nasgen_classes$(PATH_SEP)$(NASHORN_OUTPUTDIR)/nashorn_classes&quot; \</span><br></pre></td></tr></table></figure>
-<p>本文链接 <a href="http://blog.elegantme.cn/Mac%E4%B8%8B%E7%BC%96%E8%AF%91OpenJDK8/">http://blog.elegantme.cn/Mac下编译OpenJDK8/</a> 转载请标明出处</p>
+<h2 id="虚拟机实践"><a class="markdownIt-Anchor" href="#虚拟机实践"></a> 虚拟机实践</h2>
+<h3 id="oom及dump内存快照分析实践"><a class="markdownIt-Anchor" href="#oom及dump内存快照分析实践"></a> OOM及DUMP内存快照分析实践</h3>
+<h4 id="heap-oom"><a class="markdownIt-Anchor" href="#heap-oom"></a> Heap OOM</h4>
+<ol>
+<li>编写测试类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OOMdump</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">oom</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        List&lt;oom&gt; ooml = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            ooml.add(<span class="keyword">new</span> oom());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置运行参数<br>
+<img src="/Mac下编译OpenJDK8及虚拟机实践/2.png" alt=""><br>
+按照上图添加 Run/Debug Configurations,注意 VM options,设置 Heap 大小且不可扩展且DUMP 内存快照以便事后分析<br>
+运行上面代码将会抛出OOM异常如下</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Java heap space <span class="comment">//  OOM异常原因: 堆空间</span></span><br><span class="line">Dumping heap to java_pid1497.hprof ...</span><br><span class="line">Heap dump file created [<span class="number">5050206</span> bytes in <span class="number">0.017</span> secs]</span><br><span class="line">Exception in thread <span class="string">"main"</span> java.lang.OutOfMemoryError: Java heap space</span><br><span class="line">  at java.util.Arrays.copyOf(Arrays.java:<span class="number">3210</span>)</span><br><span class="line">  at java.util.Arrays.copyOf(Arrays.java:<span class="number">3181</span>)</span><br><span class="line">  at java.util.ArrayList.grow(ArrayList.java:<span class="number">265</span>)</span><br><span class="line">  at java.util.ArrayList.ensureExplicitCapacity(ArrayList.java:<span class="number">239</span>)</span><br><span class="line">  at java.util.ArrayList.ensureCapacityInternal(ArrayList.java:<span class="number">231</span>)</span><br><span class="line">  at java.util.ArrayList.add(ArrayList.java:<span class="number">462</span>) <span class="comment">// 空间不够准备扩展,但内存不够扩展失败导致异常出现</span></span><br><span class="line">  at com.example.demo.OOMdump.main(OOMdump.java:<span class="number">13</span>)</span><br></pre></td></tr></table></figure>
+<p>使用内存分析工具MAT查看java_pid1497.hprof,<a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="noopener">MAT下载地址</a><br>
+<img src="/Mac下编译OpenJDK8及虚拟机实践/3.png" alt=""><br>
+从图中我们可以看到内部类oom占比77.91%,共106710个实体</p>
+<blockquote>
+<p>下载过软件之后,安装出错,直接打开包,打开里边的Memory Analyzer使用即可</p>
+</blockquote>
+<h3 id="虚拟机栈vm-stack及本地方法栈native-method-stack-stackoverflowerror"><a class="markdownIt-Anchor" href="#虚拟机栈vm-stack及本地方法栈native-method-stack-stackoverflowerror"></a> 虚拟机栈(VM Stack)及本地方法栈(Native Method Stack) StackOverFlowError</h3>
+<ol>
+<li>编写测试类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackSOF</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> stackLength = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackLeak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        stackLength++;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        StackSOF stackSOF = <span class="keyword">new</span> StackSOF();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            stackSOF.stackLeak();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (StackOverflowError stackOverflowError) &#123;</span><br><span class="line">              System.out.println(<span class="string">"length:"</span> + stackSOF.stackLength + <span class="string">"\n"</span> + stackOverflowError.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置运行参数为 -Xss160k(最小)<br>
+运行测试将抛出SOF异常如下:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">length:<span class="number">772</span></span><br><span class="line">Exception in thread <span class="string">"main"</span> java.lang.StackOverflowError</span><br><span class="line">  at com.example.demo.StackSOF.stackLeak(StackSOF.java:<span class="number">7</span>)</span><br><span class="line">  at com.example.demo.StackSOF.stackLeak(StackSOF.java:<span class="number">7</span>)</span><br><span class="line">  at com.example.demo.StackSOF.stackLeak(StackSOF.java:<span class="number">7</span>)</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不设置VM options,栈深度为12455,也就是当前环境下虚拟机默认最大栈深度为12455</p>
+</blockquote>
+<p>本文链接 <a href="http://blog.elegantme.cn/Mac%E4%B8%8B%E7%BC%96%E8%AF%91OpenJDK8%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E8%B7%B5/">http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/</a> 转载请标明出处</p>
 
   </div>
   
@@ -271,7 +306,7 @@
 </div>
 <!-- 添加捐赠图标 -->
   
-   <div>本篇文章<span class="post-count">1.3k</span>字</div>
+   <div>本篇文章<span class="post-count">1.7k</span>字</div>
 </article>
 
     <div class="blog-post-comments">
@@ -303,21 +338,21 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#当前环境"><span class="toc-number">1.</span> <span class="toc-text"> 当前环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载源码"><span class="toc-number">2.</span> <span class="toc-text"> 下载源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装依赖"><span class="toc-number">3.</span> <span class="toc-text"> 安装依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#xquartz"><span class="toc-number">3.1.</span> <span class="toc-text"> XQuartz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#freetype"><span class="toc-number">3.2.</span> <span class="toc-text"> freetype</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gun组件"><span class="toc-number">3.3.</span> <span class="toc-text"> GUN组件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进行编译"><span class="toc-number">4.</span> <span class="toc-text"> 进行编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误列表"><span class="toc-number">5.</span> <span class="toc-text"> 错误列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#bash-configure过程中可能会遇到的错误"><span class="toc-number">5.1.</span> <span class="toc-text"> bash ./configure过程中可能会遇到的错误:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#make-all过程中可能遇到的错误"><span class="toc-number">5.2.</span> <span class="toc-text"> make all过程中可能遇到的错误:</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#当前环境"><span class="toc-number">1.</span> <span class="toc-text"> 当前环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载源码"><span class="toc-number">2.</span> <span class="toc-text"> 下载源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装依赖"><span class="toc-number">3.</span> <span class="toc-text"> 安装依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xquartz"><span class="toc-number">3.1.</span> <span class="toc-text"> XQuartz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#freetype"><span class="toc-number">3.2.</span> <span class="toc-text"> freetype</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gun组件"><span class="toc-number">3.3.</span> <span class="toc-text"> GUN组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进行编译"><span class="toc-number">4.</span> <span class="toc-text"> 进行编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误列表"><span class="toc-number">5.</span> <span class="toc-text"> 错误列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash-configure过程中可能会遇到的错误"><span class="toc-number">5.1.</span> <span class="toc-text"> bash ./configure过程中可能会遇到的错误:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#make-all过程中可能遇到的错误"><span class="toc-number">5.2.</span> <span class="toc-text"> make all过程中可能遇到的错误:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟机实践"><span class="toc-number">6.</span> <span class="toc-text"> 虚拟机实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">6.1.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">6.1.1.</span> <span class="toc-text"> Heap OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈vm-stack及本地方法栈native-method-stack-stackoverflowerror"><span class="toc-number">6.2.</span> <span class="toc-text"> 虚拟机栈(VM Stack)及本地方法栈(Native Method Stack) StackOverFlowError</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&text=Mac下编译OpenJDK8"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&is_video=false&description=Mac下编译OpenJDK8"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&name=Mac下编译OpenJDK8&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&text=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&is_video=false&description=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8及虚拟机实践&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&name=Mac下编译OpenJDK8及虚拟机实践&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -354,7 +389,7 @@
       </ul>
     </nav>
   </div>
-  本站文章共<span class="post-count">7.6k</span>字
+  本站文章共<span class="post-count">8k</span>字
 </footer>
 
     </div>
