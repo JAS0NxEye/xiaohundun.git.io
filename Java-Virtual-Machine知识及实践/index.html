@@ -7,22 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="JVM  JVM运行时数据区(Run-Time Data Area) JVM定义了程序运行期间需要使用的多个运行时数据区域. 其中一些生命周期和JVM相同.另外一些生命周期和线程相同. 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.  程序计数器(PC Register) JVM支持多线程同时执行. 每个JVM线程都有其自己的PC(program counter)">
+    <meta name="description" content="JVM结构  1.类文件格式(class file format) 用于在 JVM 中执行的编译后的代码,也就是.class文件,.class文件是跨语言跨平台的基础  2.数据类型(Data Types) JVM 操作两种数据类型: 原始数据类型(primitive)、引用数据类型(reference types)  3.原始数据类型和值 JVM 支持的原始数据类型有:  numeric bo">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Virtual Machine知识及实践">
 <meta property="og:url" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/index.html">
 <meta property="og:site_name" content="xiaohundun的博客 分享-学习-有趣的灵魂">
-<meta property="og:description" content="JVM  JVM运行时数据区(Run-Time Data Area) JVM定义了程序运行期间需要使用的多个运行时数据区域. 其中一些生命周期和JVM相同.另外一些生命周期和线程相同. 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.  程序计数器(PC Register) JVM支持多线程同时执行. 每个JVM线程都有其自己的PC(program counter)">
+<meta property="og:description" content="JVM结构  1.类文件格式(class file format) 用于在 JVM 中执行的编译后的代码,也就是.class文件,.class文件是跨语言跨平台的基础  2.数据类型(Data Types) JVM 操作两种数据类型: 原始数据类型(primitive)、引用数据类型(reference types)  3.原始数据类型和值 JVM 支持的原始数据类型有:  numeric bo">
 <meta property="og:locale" content="zh">
 <meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/4.png">
 <meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/5.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/6.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/7.png">
 <meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/2.png">
 <meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/3.png">
-<meta property="og:updated_time" content="2018-11-26T03:22:58.886Z">
+<meta property="og:updated_time" content="2018-11-26T09:29:03.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Virtual Machine知识及实践">
-<meta name="twitter:description" content="JVM  JVM运行时数据区(Run-Time Data Area) JVM定义了程序运行期间需要使用的多个运行时数据区域. 其中一些生命周期和JVM相同.另外一些生命周期和线程相同. 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.  程序计数器(PC Register) JVM支持多线程同时执行. 每个JVM线程都有其自己的PC(program counter)">
+<meta name="twitter:description" content="JVM结构  1.类文件格式(class file format) 用于在 JVM 中执行的编译后的代码,也就是.class文件,.class文件是跨语言跨平台的基础  2.数据类型(Data Types) JVM 操作两种数据类型: 原始数据类型(primitive)、引用数据类型(reference types)  3.原始数据类型和值 JVM 支持的原始数据类型有:  numeric bo">
 <meta name="twitter:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/4.png">
     
     
@@ -109,8 +111,8 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm"><span class="toc-number">1.</span> <span class="toc-text"> JVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jvm运行时数据区run-time-data-area"><span class="toc-number">1.1.</span> <span class="toc-text"> JVM运行时数据区(Run-Time Data Area)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#程序计数器pc-register"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 程序计数器(PC Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚拟机栈java-virtual-machine-stacks"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆heap"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区method-area"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时常量池run-time-constant-pool"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈native-method-stacks"><span class="toc-number">1.1.6.</span> <span class="toc-text"> 本地方法栈(Native Method Stacks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#帧frames"><span class="toc-number">1.2.</span> <span class="toc-text"> 帧(Frames)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊方法special-methods"><span class="toc-number">1.3.</span> <span class="toc-text"> 特殊方法(Special Methods)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">1.4.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">1.4.1.</span> <span class="toc-text"> Heap OOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-oom"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 方法区 OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈jvm-stacksstackoverflowerror"><span class="toc-number">1.5.</span> <span class="toc-text"> 虚拟机栈(JVM Stacks)StackOverFlowError</span></a></li></ol></li></ol>
-    </div>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm结构"><span class="toc-number">1.</span> <span class="toc-text"> JVM结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1类文件格式class-file-format"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.类文件格式(class file format)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2数据类型data-types"><span class="toc-number">1.2.</span> <span class="toc-text"> 2.数据类型(Data Types)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3原始数据类型和值"><span class="toc-number">1.3.</span> <span class="toc-text"> 3.原始数据类型和值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4引用数据类型和值"><span class="toc-number">1.4.</span> <span class="toc-text"> 4.引用数据类型和值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5jvm运行时数据区run-time-data-area"><span class="toc-number">1.5.</span> <span class="toc-text"> 5.JVM运行时数据区(Run-Time Data Area)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#51程序计数器pc-register"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 5.1程序计数器(PC Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#52虚拟机栈java-virtual-machine-stacks"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 5.2虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#53堆heap"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 5.3堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#54方法区method-area"><span class="toc-number">1.5.4.</span> <span class="toc-text"> 5.4方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#55运行时常量池run-time-constant-pool"><span class="toc-number">1.5.5.</span> <span class="toc-text"> 5.5运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#56本地方法栈native-method-stacks"><span class="toc-number">1.5.6.</span> <span class="toc-text"> 5.6本地方法栈(Native Method Stacks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6帧frames"><span class="toc-number">1.6.</span> <span class="toc-text"> 6.帧(Frames)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#61局部变量local-variables"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 6.1局部变量(Local Variables)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#62操作数栈operand-stacks"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 6.2操作数栈(Operand Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态链接dynamic-linking"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 动态链接(Dynamic Linking)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7特殊方法special-methods"><span class="toc-number">1.7.</span> <span class="toc-text"> 7.特殊方法(Special Methods)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">1.8.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">1.8.1.</span> <span class="toc-text"> Heap OOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-oom"><span class="toc-number">1.8.2.</span> <span class="toc-text"> 方法区 OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈jvm-stacksstackoverflowerror"><span class="toc-number">1.9.</span> <span class="toc-text"> 虚拟机栈(JVM Stacks)StackOverFlowError</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">推荐文章（由hexo文章推荐插件驱动）</span></a>
+    </li></div>
   </span>
 </div>
 
@@ -150,27 +152,56 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="jvm"><a class="markdownIt-Anchor" href="#jvm"></a> JVM</h2>
-<h3 id="jvm运行时数据区run-time-data-area"><a class="markdownIt-Anchor" href="#jvm运行时数据区run-time-data-area"></a> JVM运行时数据区(Run-Time Data Area)</h3>
+    <h2 id="jvm结构"><a class="markdownIt-Anchor" href="#jvm结构"></a> JVM结构</h2>
+<h3 id="1类文件格式class-file-format"><a class="markdownIt-Anchor" href="#1类文件格式class-file-format"></a> 1.类文件格式(class file format)</h3>
+<p>用于在 JVM 中执行的编译后的代码,也就是<code>.class</code>文件,<code>.class</code>文件是跨语言跨平台的基础</p>
+<h3 id="2数据类型data-types"><a class="markdownIt-Anchor" href="#2数据类型data-types"></a> 2.数据类型(Data Types)</h3>
+<p>JVM 操作两种数据类型: <em>原始数据类型(primitive)</em>、<em>引用数据类型(reference types)</em></p>
+<h3 id="3原始数据类型和值"><a class="markdownIt-Anchor" href="#3原始数据类型和值"></a> 3.原始数据类型和值</h3>
+<p>JVM 支持的原始数据类型有:</p>
+<ol>
+<li>numeric</li>
+<li>boolean</li>
+<li>returnAddress</li>
+</ol>
+<p><strong>numeric类型</strong> 包括 <strong>整数类型</strong> 及 <strong>浮点类型</strong><br>
+整数类型有:</p>
+<ol>
+<li>byte 8bit default value is o</li>
+<li>short 16bit default value is o</li>
+<li>int 32bit default value is o</li>
+<li>long 64bit default value is o</li>
+<li>char 16bit default value is the null</li>
+</ol>
+<p>浮点类型有:</p>
+<ol>
+<li>float default value is positive zero</li>
+<li>double default value is positive zero</li>
+</ol>
+<h3 id="4引用数据类型和值"><a class="markdownIt-Anchor" href="#4引用数据类型和值"></a> 4.引用数据类型和值</h3>
+<p>引用数据类型:类、数组、接口。<br>
+它们的值分别是对动态创建的类实例，数组，实现接口的类实例或数组的引用<br>
+引用类型默认值为 <code>null</code></p>
+<h3 id="5jvm运行时数据区run-time-data-area"><a class="markdownIt-Anchor" href="#5jvm运行时数据区run-time-data-area"></a> 5.JVM运行时数据区(Run-Time Data Area)</h3>
 <p>JVM定义了程序运行期间需要使用的多个运行时数据区域.<br>
 其中一些生命周期和JVM相同.另外一些生命周期和线程相同.<br>
 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.</p>
-<h4 id="程序计数器pc-register"><a class="markdownIt-Anchor" href="#程序计数器pc-register"></a> 程序计数器(PC Register)</h4>
+<h4 id="51程序计数器pc-register"><a class="markdownIt-Anchor" href="#51程序计数器pc-register"></a> 5.1程序计数器(PC Register)</h4>
 <p>JVM支持多线程同时执行.<br>
 每个JVM线程都有其自己的PC(program counter)寄存器.<br>
 在任何时候,JVM线程都在执行单个方法的代码,也就是说该线程的当前方法.<br>
 如果不是本地方法(Native Method),pc寄存器包含了当前正在执行的虚拟机指令地址.如果是本地方法的话,pc寄存器值为 <strong>undefined</strong><br>
 此区域不存在OOM.</p>
-<h4 id="虚拟机栈java-virtual-machine-stacks"><a class="markdownIt-Anchor" href="#虚拟机栈java-virtual-machine-stacks"></a> 虚拟机栈(Java Virtual Machine Stacks)</h4>
+<h4 id="52虚拟机栈java-virtual-machine-stacks"><a class="markdownIt-Anchor" href="#52虚拟机栈java-virtual-machine-stacks"></a> 5.2虚拟机栈(Java Virtual Machine Stacks)</h4>
 <p>每个JVM线程都有一个私有的虚拟机栈,和线程一起创建.<br>
-虚拟机栈存储<a href="#%E5%B8%A7(Frames)">栈帧</a>.<br>
+虚拟机栈存储<a href="#6.%E5%B8%A7frames">栈帧</a>.<br>
 JVM栈类似于C语言的栈,它储存 <strong>本地变量</strong>, <strong>局部结果</strong>, 在方法调用及返回中扮演着重要的角色.<br>
 一个方法从调用到结束调用对应着栈帧出栈和入栈过程.<br>
 虚拟机栈空间不必是连续的.<br>
 虚拟机栈空间可以是固定大小,也可按照需要动态扩展和压缩.<br>
-如果线程需要的虚拟机栈超过允许值,JVM将抛出 <strong>StackOverflowError</strong> ,如[示例](#虚拟机栈(JVM Stacks)StackOverFlowError).<br>
+如果线程需要的虚拟机栈超过允许值,JVM将抛出 <strong>StackOverflowError</strong> ,如<a href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88jvm-stacksstackoverflowerror">示例</a>.<br>
 JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</strong></p>
-<h4 id="堆heap"><a class="markdownIt-Anchor" href="#堆heap"></a> 堆(Heap)</h4>
+<h4 id="53堆heap"><a class="markdownIt-Anchor" href="#53堆heap"></a> 5.3堆(Heap)</h4>
 <p>内存布局:<br>
 <strong>before version 8.0</strong><br>
 <img src="/Java-Virtual-Machine知识及实践/4.png" alt=""><br>
@@ -182,19 +213,73 @@ JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</
 堆储存的对象被自动存储管理系统(GC)回收.<br>
 堆空间不必是连续的.<br>
 堆空间可以是固定大小,也可按照需要动态扩展和压缩.<br>
-当GC无法释放所需要的空间时 JVM 将抛出 <strong>OutOfMemoryError</strong> ,如[示例](#Heap OOM)</p>
-<h4 id="方法区method-area"><a class="markdownIt-Anchor" href="#方法区method-area"></a> 方法区(Method Area)</h4>
+当GC无法释放所需要的空间时 JVM 将抛出 <strong>OutOfMemoryError</strong> ,如<a href="#heap-oom">示例</a></p>
+<h4 id="54方法区method-area"><a class="markdownIt-Anchor" href="#54方法区method-area"></a> 5.4方法区(Method Area)</h4>
 <p>方法区空间是线程共享的.<br>
-方法区储存类型信息,例如:运行时常量池/字段/方法/方法和构造函数代码,包括类的实例初始化以及接口初始化中使用的[特殊方法](#特殊方法(Special Methods))<br>
+方法区储存类型信息,例如:运行时常量池/字段/方法/方法和构造函数代码,包括类的实例初始化以及接口初始化中使用的<a href="#7.%E7%89%B9%E6%AE%8A%E6%96%B9%E6%B3%95special-methods">特殊方法</a><br>
 方法区在JVM启动时创建.<br>
 方法区是堆的逻辑部分,可以选择实现或不实现垃圾收集及压缩.<br>
 堆空间不必是连续的.<br>
 堆空间可以是固定大小,也可按照需要动态扩展和压缩.<br>
-当方法区无法满足请求分配量时 JVM 将抛出 <strong>OutOfMemoryError</strong> ,如[示例](#方法区 OOM)</p>
-<h4 id="运行时常量池run-time-constant-pool"><a class="markdownIt-Anchor" href="#运行时常量池run-time-constant-pool"></a> 运行时常量池(Run-Time Constant Pool)</h4>
-<h4 id="本地方法栈native-method-stacks"><a class="markdownIt-Anchor" href="#本地方法栈native-method-stacks"></a> 本地方法栈(Native Method Stacks)</h4>
-<h3 id="帧frames"><a class="markdownIt-Anchor" href="#帧frames"></a> 帧(Frames)</h3>
-<h3 id="特殊方法special-methods"><a class="markdownIt-Anchor" href="#特殊方法special-methods"></a> 特殊方法(Special Methods)</h3>
+当方法区无法满足请求分配量时 JVM 将抛出 <strong>OutOfMemoryError</strong> ,如<a href="#%E6%96%B9%E6%B3%95%E5%8C%BA-oom">示例</a></p>
+<h4 id="55运行时常量池run-time-constant-pool"><a class="markdownIt-Anchor" href="#55运行时常量池run-time-constant-pool"></a> 5.5运行时常量池(Run-Time Constant Pool)</h4>
+<p>用于存放编译期生成的各种字面量和符号引用，但并非只有编译期才产生，它是动态的，也就是说在运行期间也可以将新的常量放进去，比如 <strong>String 类的 intern()方法</strong>。运行时常量池是在 <strong>方法区(Method Area)</strong> 中分配的。<br>
+<img src="/Java-Virtual-Machine知识及实践/6.png" alt=".class"></p>
+<blockquote>
+<p>上图中使用 <strong>javap</strong> 命令对 .class 文件进行反编译，其中15行的Constant pool后便是运行时常量池内容</p>
+</blockquote>
+<h4 id="56本地方法栈native-method-stacks"><a class="markdownIt-Anchor" href="#56本地方法栈native-method-stacks"></a> 5.6本地方法栈(Native Method Stacks)</h4>
+<p>支持本地方法(使用非java语言的方法)</p>
+<h3 id="6帧frames"><a class="markdownIt-Anchor" href="#6帧frames"></a> 6.帧(Frames)</h3>
+<p>frame用来储存数据及局部结果，也被用来执行动态链接，返回方法的返回值，以及异常处理。<br>
+每当方法调用时创建一个帧，当调用结束时，帧被销毁(<strong>无论调用成功是否</strong>)。<br>
+帧创建在<a href="#5.2%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88java-virtual-machine-stacks">虚拟机栈</a>中。<br>
+每个栈拥有自己的</p>
+<ol>
+<li>本地变量数组 array of local variables</li>
+<li>操作数栈 operand stacks</li>
+<li>类的当前方法的运行时常量池引用</li>
+</ol>
+<p>帧中本地变量数组以及操作数帧的大小在编译期已经确定。</p>
+<blockquote>
+<p>线程创建的帧为该线程的本地帧，其他线程不可引用</p>
+</blockquote>
+<h4 id="61局部变量local-variables"><a class="markdownIt-Anchor" href="#61局部变量local-variables"></a> 6.1局部变量(Local Variables)</h4>
+<p>每个帧包含一个称为局部变量的变量数组。局部变量数组长度在编译期已经确定。<br>
+一个局部变量的值类型可以是:</p>
+<ul>
+<li>boolean</li>
+<li>byte</li>
+<li>char</li>
+<li>short</li>
+<li>int</li>
+<li>float</li>
+<li>reference</li>
+<li>returnAddress<br>
+一对局部变量的值类型可以是:</li>
+<li>long</li>
+<li>double</li>
+</ul>
+<p>局部变量用索引维护变量数组。<br>
+<img src="/Java-Virtual-Machine知识及实践/7.png" alt=""></p>
+<blockquote>
+<p>上图中使用 <strong>javap</strong> 命令反编译 .class，图中第一行显示即为局部变量，即当前帧的局部变量</p>
+</blockquote>
+<h4 id="62操作数栈operand-stacks"><a class="markdownIt-Anchor" href="#62操作数栈operand-stacks"></a> 6.2操作数栈(Operand Stacks)</h4>
+<p>每个帧拥有一个后进先出(LIFO)栈，也就是操作数栈。<br>
+操作数栈最大深度在编译期已经确定。<br>
+Java虚拟机提供指令以将局部变量或字段中的常量或值加载到 <strong>操作数栈</strong> 上，另提供拿取 <strong>操作数(operand)</strong> 以及操作 <strong>操作数(operand)</strong> 并将其放回 <strong>操作数栈</strong> 的Java虚拟机指令</p>
+<p>比如 <strong>iadd</strong> 指令(两个整数相加)。<strong>bipush</strong> 指令将int值压入操作数栈，使用 <strong>iadd</strong> 指令将两个值相加并将结果压入栈顶，弹出两个整形值，使用 <strong>ireturn</strong> 返回栈顶元素。<br>
+代码及反编译结果如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">testInstruction</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> a+<span class="number">20</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Code:</span><br><span class="line">      stack=2, locals=2, args_size=1</span><br><span class="line">         0: bipush        30</span><br><span class="line">         2: istore_1</span><br><span class="line">         3: iload_1</span><br><span class="line">         4: bipush        20</span><br><span class="line">         6: iadd</span><br><span class="line">         7: ireturn</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 43: 0</span><br><span class="line">        line 44: 3</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            0       8     0  this   Lcom/baosight/<span class="built_in">test</span>/BitOpt;</span><br><span class="line">            3       5     1     a   I</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>istore_&lt;n&gt;指令-将int存储到局部变量表中<br>
+iload_&lt;n&gt;指令-从局部变量表中取出int<br>
+其中 n 必须是当前帧本地变量表中的索引，且索引处的本地变量必须为 int</p>
+</blockquote>
+<h4 id="动态链接dynamic-linking"><a class="markdownIt-Anchor" href="#动态链接dynamic-linking"></a> 动态链接(Dynamic Linking)</h4>
+<h3 id="7特殊方法special-methods"><a class="markdownIt-Anchor" href="#7特殊方法special-methods"></a> 7.特殊方法(Special Methods)</h3>
 <h3 id="oom及dump内存快照分析实践"><a class="markdownIt-Anchor" href="#oom及dump内存快照分析实践"></a> OOM及DUMP内存快照分析实践</h3>
 <h4 id="heap-oom"><a class="markdownIt-Anchor" href="#heap-oom"></a> Heap OOM</h4>
 <ol>
@@ -237,7 +322,7 @@ JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</
 <p>如果不设置VM options,栈深度为12455,也就是当前环境下虚拟机默认最大栈深度为12455</p>
 </blockquote>
 <p>本文链接 <a href="http://blog.elegantme.cn/Java-Virtual-Machine%E7%9F%A5%E8%AF%86%E5%8F%8A%E5%AE%9E%E8%B7%B5/">http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/</a> 转载请标明出处</p>
-
+<div><h1>推荐文章<span style="font-size:0.45em; color:gray">（由<a href="https://github.com/huiwang/hexo-recommended-posts">hexo文章推荐插件</a>驱动）</span></h1><ul><li><a href="http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/">Spring-Boot启动类SpringApplication解析</a></li><li><a href="http://elegantme.cn/Spring-Boot启动类SpringApplication解析/">Spring-Boot启动类SpringApplication解析</a></li></ul></div>
   </div>
   
     <!-- 添加捐赠图标 -->
@@ -265,7 +350,7 @@ JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</
 </div>
 <!-- 添加捐赠图标 -->
   
-   <div>本篇文章<span class="post-count">1.5k</span>字</div>
+   <div>本篇文章<span class="post-count">2.5k</span>字</div>
 </article>
 
     <div class="blog-post-comments">
@@ -297,8 +382,8 @@ JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm"><span class="toc-number">1.</span> <span class="toc-text"> JVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jvm运行时数据区run-time-data-area"><span class="toc-number">1.1.</span> <span class="toc-text"> JVM运行时数据区(Run-Time Data Area)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#程序计数器pc-register"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 程序计数器(PC Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚拟机栈java-virtual-machine-stacks"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆heap"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区method-area"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时常量池run-time-constant-pool"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈native-method-stacks"><span class="toc-number">1.1.6.</span> <span class="toc-text"> 本地方法栈(Native Method Stacks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#帧frames"><span class="toc-number">1.2.</span> <span class="toc-text"> 帧(Frames)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊方法special-methods"><span class="toc-number">1.3.</span> <span class="toc-text"> 特殊方法(Special Methods)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">1.4.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">1.4.1.</span> <span class="toc-text"> Heap OOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-oom"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 方法区 OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈jvm-stacksstackoverflowerror"><span class="toc-number">1.5.</span> <span class="toc-text"> 虚拟机栈(JVM Stacks)StackOverFlowError</span></a></li></ol></li></ol>
-    </div>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm结构"><span class="toc-number">1.</span> <span class="toc-text"> JVM结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1类文件格式class-file-format"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.类文件格式(class file format)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2数据类型data-types"><span class="toc-number">1.2.</span> <span class="toc-text"> 2.数据类型(Data Types)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3原始数据类型和值"><span class="toc-number">1.3.</span> <span class="toc-text"> 3.原始数据类型和值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4引用数据类型和值"><span class="toc-number">1.4.</span> <span class="toc-text"> 4.引用数据类型和值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5jvm运行时数据区run-time-data-area"><span class="toc-number">1.5.</span> <span class="toc-text"> 5.JVM运行时数据区(Run-Time Data Area)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#51程序计数器pc-register"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 5.1程序计数器(PC Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#52虚拟机栈java-virtual-machine-stacks"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 5.2虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#53堆heap"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 5.3堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#54方法区method-area"><span class="toc-number">1.5.4.</span> <span class="toc-text"> 5.4方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#55运行时常量池run-time-constant-pool"><span class="toc-number">1.5.5.</span> <span class="toc-text"> 5.5运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#56本地方法栈native-method-stacks"><span class="toc-number">1.5.6.</span> <span class="toc-text"> 5.6本地方法栈(Native Method Stacks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6帧frames"><span class="toc-number">1.6.</span> <span class="toc-text"> 6.帧(Frames)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#61局部变量local-variables"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 6.1局部变量(Local Variables)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#62操作数栈operand-stacks"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 6.2操作数栈(Operand Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态链接dynamic-linking"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 动态链接(Dynamic Linking)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7特殊方法special-methods"><span class="toc-number">1.7.</span> <span class="toc-text"> 7.特殊方法(Special Methods)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">1.8.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">1.8.1.</span> <span class="toc-text"> Heap OOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-oom"><span class="toc-number">1.8.2.</span> <span class="toc-text"> 方法区 OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈jvm-stacksstackoverflowerror"><span class="toc-number">1.9.</span> <span class="toc-text"> 虚拟机栈(JVM Stacks)StackOverFlowError</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">推荐文章（由hexo文章推荐插件驱动）</span></a>
+    </li></div>
 
     <div id="share-footer" style="display: none">
       <ul>
@@ -348,7 +433,7 @@ JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</
       </ul>
     </nav>
   </div>
-  本站文章共<span class="post-count">9.1k</span>字
+  本站文章共<span class="post-count">10k</span>字
 </footer>
 
     </div>
