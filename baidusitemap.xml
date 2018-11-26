@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.elegantme.cn/Java-Virtual-Machine%E7%9F%A5%E8%AF%86%E5%8F%8A%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2018-11-26T03:22:58.886Z</lastmod>
+  </url>  <url>
     <loc>http://blog.elegantme.cn/Mac%E4%B8%8B%E7%BC%96%E8%AF%91OpenJDK8%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E8%B7%B5/</loc>
-    <lastmod>2018-11-23T14:52:13.957Z</lastmod>
+    <lastmod>2018-11-26T03:21:18.692Z</lastmod>
   </url>  <url>
     <loc>http://blog.elegantme.cn/Spring-Boot%E5%90%AF%E5%8A%A8%E7%B1%BBSpringApplication%E8%A7%A3%E6%9E%90/</loc>
     <lastmod>2018-11-20T13:18:11.429Z</lastmod>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta name="google-site-verification" content="B8rnJ7lT52074wiXfBUlgTf5PiOM5P5hi_bJNV0n3yg">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="JVM  JVM运行时数据区(Run-Time Data Area) JVM定义了程序运行期间需要使用的多个运行时数据区域. 其中一些生命周期和JVM相同.另外一些生命周期和线程相同. 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.  程序计数器(PC Register) JVM支持多线程同时执行. 每个JVM线程都有其自己的PC(program counter)">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Virtual Machine知识及实践">
+<meta property="og:url" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/index.html">
+<meta property="og:site_name" content="xiaohundun的博客 分享-学习-有趣的灵魂">
+<meta property="og:description" content="JVM  JVM运行时数据区(Run-Time Data Area) JVM定义了程序运行期间需要使用的多个运行时数据区域. 其中一些生命周期和JVM相同.另外一些生命周期和线程相同. 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.  程序计数器(PC Register) JVM支持多线程同时执行. 每个JVM线程都有其自己的PC(program counter)">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/4.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/5.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/2.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/3.png">
+<meta property="og:updated_time" content="2018-11-26T03:22:58.886Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Virtual Machine知识及实践">
+<meta name="twitter:description" content="JVM  JVM运行时数据区(Run-Time Data Area) JVM定义了程序运行期间需要使用的多个运行时数据区域. 其中一些生命周期和JVM相同.另外一些生命周期和线程相同. 和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.  程序计数器(PC Register) JVM支持多线程同时执行. 每个JVM线程都有其自己的PC(program counter)">
+<meta name="twitter:image" content="http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/4.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Java Virtual Machine知识及实践</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/xiaohundun">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/Mac下编译OpenJDK8及虚拟机实践/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&text=Java Virtual Machine知识及实践"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&is_video=false&description=Java Virtual Machine知识及实践"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java Virtual Machine知识及实践&body=Check out this article: http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&name=Java Virtual Machine知识及实践&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm"><span class="toc-number">1.</span> <span class="toc-text"> JVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jvm运行时数据区run-time-data-area"><span class="toc-number">1.1.</span> <span class="toc-text"> JVM运行时数据区(Run-Time Data Area)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#程序计数器pc-register"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 程序计数器(PC Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚拟机栈java-virtual-machine-stacks"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆heap"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区method-area"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时常量池run-time-constant-pool"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈native-method-stacks"><span class="toc-number">1.1.6.</span> <span class="toc-text"> 本地方法栈(Native Method Stacks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#帧frames"><span class="toc-number">1.2.</span> <span class="toc-text"> 帧(Frames)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊方法special-methods"><span class="toc-number">1.3.</span> <span class="toc-text"> 特殊方法(Special Methods)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">1.4.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">1.4.1.</span> <span class="toc-text"> Heap OOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-oom"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 方法区 OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈jvm-stacksstackoverflowerror"><span class="toc-number">1.5.</span> <span class="toc-text"> 虚拟机栈(JVM Stacks)StackOverFlowError</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Java Virtual Machine知识及实践
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">xiaohundun的博客 分享-学习-有趣的灵魂</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-11-26T03:20:33.000Z" itemprop="datePublished">2018-11-26</time>
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/java/">java</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="jvm"><a class="markdownIt-Anchor" href="#jvm"></a> JVM</h2>
+<h3 id="jvm运行时数据区run-time-data-area"><a class="markdownIt-Anchor" href="#jvm运行时数据区run-time-data-area"></a> JVM运行时数据区(Run-Time Data Area)</h3>
+<p>JVM定义了程序运行期间需要使用的多个运行时数据区域.<br>
+其中一些生命周期和JVM相同.另外一些生命周期和线程相同.<br>
+和JVM生命周期相同的区域为共享空间,和线程生命周期相同的区域为线程私有空间.</p>
+<h4 id="程序计数器pc-register"><a class="markdownIt-Anchor" href="#程序计数器pc-register"></a> 程序计数器(PC Register)</h4>
+<p>JVM支持多线程同时执行.<br>
+每个JVM线程都有其自己的PC(program counter)寄存器.<br>
+在任何时候,JVM线程都在执行单个方法的代码,也就是说该线程的当前方法.<br>
+如果不是本地方法(Native Method),pc寄存器包含了当前正在执行的虚拟机指令地址.如果是本地方法的话,pc寄存器值为 <strong>undefined</strong><br>
+此区域不存在OOM.</p>
+<h4 id="虚拟机栈java-virtual-machine-stacks"><a class="markdownIt-Anchor" href="#虚拟机栈java-virtual-machine-stacks"></a> 虚拟机栈(Java Virtual Machine Stacks)</h4>
+<p>每个JVM线程都有一个私有的虚拟机栈,和线程一起创建.<br>
+虚拟机栈存储<a href="#%E5%B8%A7(Frames)">栈帧</a>.<br>
+JVM栈类似于C语言的栈,它储存 <strong>本地变量</strong>, <strong>局部结果</strong>, 在方法调用及返回中扮演着重要的角色.<br>
+一个方法从调用到结束调用对应着栈帧出栈和入栈过程.<br>
+虚拟机栈空间不必是连续的.<br>
+虚拟机栈空间可以是固定大小,也可按照需要动态扩展和压缩.<br>
+如果线程需要的虚拟机栈超过允许值,JVM将抛出 <strong>StackOverflowError</strong> ,如[示例](#虚拟机栈(JVM Stacks)StackOverFlowError).<br>
+JVM在尝试进行扩展时内存不足 JVM 将抛出 <strong>OutOfMemoryError</strong></p>
+<h4 id="堆heap"><a class="markdownIt-Anchor" href="#堆heap"></a> 堆(Heap)</h4>
+<p>内存布局:<br>
+<strong>before version 8.0</strong><br>
+<img src="/Java-Virtual-Machine知识及实践/4.png" alt=""><br>
+<strong>after version 8.0</strong><br>
+<img src="/Java-Virtual-Machine知识及实践/5.png" alt=""><br>
+堆空间是线程共享的.<br>
+这里主要存放类实例以及数组.<br>
+堆空间在JVM启动时创建.<br>
+堆储存的对象被自动存储管理系统(GC)回收.<br>
+堆空间不必是连续的.<br>
+堆空间可以是固定大小,也可按照需要动态扩展和压缩.<br>
+当GC无法释放所需要的空间时 JVM 将抛出 <strong>OutOfMemoryError</strong> ,如[示例](#Heap OOM)</p>
+<h4 id="方法区method-area"><a class="markdownIt-Anchor" href="#方法区method-area"></a> 方法区(Method Area)</h4>
+<p>方法区空间是线程共享的.<br>
+方法区储存类型信息,例如:运行时常量池/字段/方法/方法和构造函数代码,包括类的实例初始化以及接口初始化中使用的[特殊方法](#特殊方法(Special Methods))<br>
+方法区在JVM启动时创建.<br>
+方法区是堆的逻辑部分,可以选择实现或不实现垃圾收集及压缩.<br>
+堆空间不必是连续的.<br>
+堆空间可以是固定大小,也可按照需要动态扩展和压缩.<br>
+当方法区无法满足请求分配量时 JVM 将抛出 <strong>OutOfMemoryError</strong> ,如[示例](#方法区 OOM)</p>
+<h4 id="运行时常量池run-time-constant-pool"><a class="markdownIt-Anchor" href="#运行时常量池run-time-constant-pool"></a> 运行时常量池(Run-Time Constant Pool)</h4>
+<h4 id="本地方法栈native-method-stacks"><a class="markdownIt-Anchor" href="#本地方法栈native-method-stacks"></a> 本地方法栈(Native Method Stacks)</h4>
+<h3 id="帧frames"><a class="markdownIt-Anchor" href="#帧frames"></a> 帧(Frames)</h3>
+<h3 id="特殊方法special-methods"><a class="markdownIt-Anchor" href="#特殊方法special-methods"></a> 特殊方法(Special Methods)</h3>
+<h3 id="oom及dump内存快照分析实践"><a class="markdownIt-Anchor" href="#oom及dump内存快照分析实践"></a> OOM及DUMP内存快照分析实践</h3>
+<h4 id="heap-oom"><a class="markdownIt-Anchor" href="#heap-oom"></a> Heap OOM</h4>
+<ol>
+<li>编写测试类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//-Xms3m -Xmx3m -XX:+HeapDumpOnOutOfMemoryError</span></span><br><span class="line"><span class="comment">//Heap用来存放对象实例,生成大量对象,撑爆空间</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OOMdump</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">oom</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        List&lt;oom&gt; ooml = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            ooml.add(<span class="keyword">new</span> oom());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置运行参数<br>
+<img src="/Java-Virtual-Machine知识及实践/2.png" alt=""><br>
+按照上图添加 Run/Debug Configurations,注意 VM options,设置 Heap 大小且不可扩展且DUMP 内存快照以便事后分析<br>
+运行上面代码将会抛出OOM异常如下</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Java heap space <span class="comment">//  OOM异常原因: 堆空间</span></span><br><span class="line">Dumping heap to java_pid1497.hprof ...</span><br><span class="line">Heap dump file created [<span class="number">5050206</span> bytes in <span class="number">0.017</span> secs]</span><br><span class="line">Exception in thread <span class="string">"main"</span> java.lang.OutOfMemoryError: Java heap space</span><br><span class="line">  at java.util.Arrays.copyOf(Arrays.java:<span class="number">3210</span>)</span><br><span class="line">  at java.util.Arrays.copyOf(Arrays.java:<span class="number">3181</span>)</span><br><span class="line">  at java.util.ArrayList.grow(ArrayList.java:<span class="number">265</span>)</span><br><span class="line">  at java.util.ArrayList.ensureExplicitCapacity(ArrayList.java:<span class="number">239</span>)</span><br><span class="line">  at java.util.ArrayList.ensureCapacityInternal(ArrayList.java:<span class="number">231</span>)</span><br><span class="line">  at java.util.ArrayList.add(ArrayList.java:<span class="number">462</span>) <span class="comment">// 空间不够准备扩展,但内存不够扩展失败导致异常出现</span></span><br><span class="line">  at com.example.demo.OOMdump.main(OOMdump.java:<span class="number">13</span>)</span><br></pre></td></tr></table></figure>
+<p>使用内存分析工具MAT查看java_pid1497.hprof,<a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="noopener">MAT下载地址</a><br>
+<img src="/Java-Virtual-Machine知识及实践/3.png" alt=""><br>
+从图中我们可以看到内部类oom占比77.91%,共106710个实体</p>
+<blockquote>
+<p>下载过软件之后,安装出错,直接打开包,打开里边的Memory Analyzer使用即可</p>
+</blockquote>
+<h4 id="方法区-oom"><a class="markdownIt-Anchor" href="#方法区-oom"></a> 方法区 OOM</h4>
+<ol>
+<li>编写测试类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//8.0版本前</span></span><br><span class="line"><span class="comment">//-XX:PermSize=6M -XX:MaxPermSize=10M</span></span><br><span class="line"><span class="comment">//通过CGLib生成大量的类使方法区溢出</span></span><br><span class="line"><span class="comment">//方法区主要存放Class相关信息,如:类名/访问修饰符/方法描述/常量池/字段描述等</span></span><br><span class="line"><span class="comment">//8.0版本后移除永久代,取而代之的是本地内存-元空间</span></span><br><span class="line"><span class="comment">//-XX:MaxMetaspaceSize=6M</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OOMMethodArea</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">            enhancer.setSuperclass(OOMdump.oom.class);</span><br><span class="line">            enhancer.setUseCache(<span class="keyword">false</span>);</span><br><span class="line">            enhancer.setCallback(<span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> methodProxy.invokeSuper(o,args);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            enhancer.create();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>运行结果</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.OutOfMemoryError: Metaspace <span class="comment">// 若在8.0之前,此处应该是 PermGen space</span></span><br><span class="line">  at org.springframework.cglib.core.AbstractClassGenerator.generate(AbstractClassGenerator.java:<span class="number">345</span>)</span><br><span class="line">  at org.springframework.cglib.proxy.Enhancer.generate(Enhancer.java:<span class="number">492</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="虚拟机栈jvm-stacksstackoverflowerror"><a class="markdownIt-Anchor" href="#虚拟机栈jvm-stacksstackoverflowerror"></a> 虚拟机栈(JVM Stacks)StackOverFlowError</h3>
+<ol>
+<li>编写测试类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//-Xss160k,通过减小虚拟机栈大小,创建大量栈帧撑爆虚拟机栈</span></span><br><span class="line"><span class="comment">//Java虚拟机栈描述Java方法执行的内存模型,每个方法在运行的同时都会</span></span><br><span class="line"><span class="comment">//创建一个栈帧(Stack Frame)用于储存局部变量/操作数栈/动态链接/方法出口等</span></span><br><span class="line"><span class="comment">//一个方法从调用到完成调用对应着一个栈帧入栈和出栈的过程</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackSOF</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> stackLength = <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackLeak</span><span class="params">()</span></span>&#123;</span><br><span class="line">        stackLength++;</span><br><span class="line">        stackLeak();<span class="comment">//  递归</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">        StackSOF stackSOF = <span class="keyword">new</span> StackSOF();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            stackSOF.stackLeak();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (StackOverflowError stackOverflowError) &#123;</span><br><span class="line">              System.out.println(<span class="string">"length:"</span> + stackSOF.stackLength + <span class="string">"\n"</span> + stackOverflowError.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置运行参数为 -Xss160k(最小)<br>
+运行测试将抛出SOF异常如下:</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">length:<span class="number">772</span></span><br><span class="line">Exception in thread <span class="string">"main"</span> java.lang.StackOverflowError</span><br><span class="line">  at com.example.demo.StackSOF.stackLeak(StackSOF.java:<span class="number">7</span>)</span><br><span class="line">  at com.example.demo.StackSOF.stackLeak(StackSOF.java:<span class="number">7</span>)</span><br><span class="line">  at com.example.demo.StackSOF.stackLeak(StackSOF.java:<span class="number">7</span>)</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不设置VM options,栈深度为12455,也就是当前环境下虚拟机默认最大栈深度为12455</p>
+</blockquote>
+<p>本文链接 <a href="http://blog.elegantme.cn/Java-Virtual-Machine%E7%9F%A5%E8%AF%86%E5%8F%8A%E5%AE%9E%E8%B7%B5/">http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/</a> 转载请标明出处</p>
+
+  </div>
+  
+    <!-- 添加捐赠图标 -->
+<div class="post-donate">
+    <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏"></a>
+        <span class="donate_txt">
+           ↑<br>
+           如果觉得不错,就稍稍给个鼓励吧~
+        </span>
+        <br>
+      </div>  
+    <div id="donate_guide" class="donate_bar center hidden">
+        <!-- 支付宝打赏图案 -->
+        <img src="/images/Alipay.jpg" alt="支付宝打赏">
+        <!-- 微信打赏图案 -->
+        <img src="/images/WeChatpay.jpg" alt="微信打赏">
+    </div>
+    <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+            $('#donate_board').addClass('hidden');
+            $('#donate_guide').removeClass('hidden');
+        }
+    </script>
+</div>
+<!-- 添加捐赠图标 -->
+  
+   <div>本篇文章<span class="post-count">1.5k</span>字</div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/xiaohundun">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm"><span class="toc-number">1.</span> <span class="toc-text"> JVM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jvm运行时数据区run-time-data-area"><span class="toc-number">1.1.</span> <span class="toc-text"> JVM运行时数据区(Run-Time Data Area)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#程序计数器pc-register"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 程序计数器(PC Register)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚拟机栈java-virtual-machine-stacks"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 虚拟机栈(Java Virtual Machine Stacks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆heap"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区method-area"><span class="toc-number">1.1.4.</span> <span class="toc-text"> 方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时常量池run-time-constant-pool"><span class="toc-number">1.1.5.</span> <span class="toc-text"> 运行时常量池(Run-Time Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈native-method-stacks"><span class="toc-number">1.1.6.</span> <span class="toc-text"> 本地方法栈(Native Method Stacks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#帧frames"><span class="toc-number">1.2.</span> <span class="toc-text"> 帧(Frames)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊方法special-methods"><span class="toc-number">1.3.</span> <span class="toc-text"> 特殊方法(Special Methods)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#oom及dump内存快照分析实践"><span class="toc-number">1.4.</span> <span class="toc-text"> OOM及DUMP内存快照分析实践</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#heap-oom"><span class="toc-number">1.4.1.</span> <span class="toc-text"> Heap OOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-oom"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 方法区 OOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机栈jvm-stacksstackoverflowerror"><span class="toc-number">1.5.</span> <span class="toc-text"> 虚拟机栈(JVM Stacks)StackOverFlowError</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&text=Java Virtual Machine知识及实践"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&is_video=false&description=Java Virtual Machine知识及实践"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java Virtual Machine知识及实践&body=Check out this article: http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&title=Java Virtual Machine知识及实践"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/&name=Java Virtual Machine知识及实践&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 xiaohundun
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/xiaohundun">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+  本站文章共<span class="post-count">9.1k</span>字
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-128998234-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'xiaohundun';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
