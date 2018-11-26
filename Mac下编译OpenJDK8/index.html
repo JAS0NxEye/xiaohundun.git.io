@@ -11,16 +11,16 @@
 <meta name="keywords" content="OpenJDK8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac下编译OpenJDK8及虚拟机实践">
-<meta property="og:url" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/index.html">
+<meta property="og:url" content="http://blog.elegantme.cn/Mac下编译OpenJDK8/index.html">
 <meta property="og:site_name" content="xiaohundun的博客 分享-学习-有趣的灵魂">
 <meta property="og:description" content="当前环境  Mac 10.14.1 JDK 1.8.0_181   下载源码  去官网下载源码:OpenJDK8下载 当我想要去直接下载压缩包时,网站却遇到技术问题(无法使用),所以我还是用了下面的方法 使用 Mercurial 版本管理工具拉取代码: OpenJDK主页 Homebrew安装  1$ brew install mercurial 拉取项目 123hg clone http://">
 <meta property="og:locale" content="zh">
-<meta property="og:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/1.png">
+<meta property="og:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8/1.png">
 <meta property="og:updated_time" content="2018-11-26T03:21:18.692Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac下编译OpenJDK8及虚拟机实践">
 <meta name="twitter:description" content="当前环境  Mac 10.14.1 JDK 1.8.0_181   下载源码  去官网下载源码:OpenJDK8下载 当我想要去直接下载压缩包时,网站却遇到技术问题(无法使用),所以我还是用了下面的方法 使用 Mercurial 版本管理工具拉取代码: OpenJDK主页 Homebrew安装  1$ brew install mercurial 拉取项目 123hg clone http://">
-<meta name="twitter:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/1.png">
+<meta name="twitter:image" content="http://blog.elegantme.cn/Mac下编译OpenJDK8/1.png">
     
     
         
@@ -94,16 +94,16 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&text=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&is_video=false&description=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8及虚拟机实践&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&name=Mac下编译OpenJDK8及虚拟机实践&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&text=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&is_video=false&description=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8及虚拟机实践&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&name=Mac下编译OpenJDK8及虚拟机实践&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -164,7 +164,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install mercurial</span><br></pre></td></tr></table></figure>
 <p>拉取项目</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hg <span class="built_in">clone</span> http://hg.openjdk.java.net/jdk8/jdk8 jdk8</span><br><span class="line"><span class="built_in">cd</span> jdk8</span><br><span class="line">bash ./get_source.sh</span><br></pre></td></tr></table></figure>
-<p><img src="/Mac下编译OpenJDK8及虚拟机实践/1.png" alt=""></p>
+<p><img src="/Mac下编译OpenJDK8/1.png" alt=""></p>
 <h2 id="安装依赖"><a class="markdownIt-Anchor" href="#安装依赖"></a> 安装依赖</h2>
 <blockquote>
 <p>使用clang编译器,不需要下载xcode</p>
@@ -244,7 +244,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-cp &quot;$(NASHORN_OUTPUTDIR)/nasgen_classes$(PATH_SEP)$(NASHORN_OUTPUTDIR)/nashorn_classes&quot; \</span><br></pre></td></tr></table></figure>
 <p>修改后</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xbootclasspath/p:&quot;$(NASHORN_OUTPUTDIR)/nasgen_classes$(PATH_SEP)$(NASHORN_OUTPUTDIR)/nashorn_classes&quot; \</span><br></pre></td></tr></table></figure>
-<p>本文链接 <a href="http://blog.elegantme.cn/Mac%E4%B8%8B%E7%BC%96%E8%AF%91OpenJDK8%E5%8F%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E8%B7%B5/">http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/</a> 转载请标明出处</p>
+<p>本文链接 <a href="http://blog.elegantme.cn/Mac%E4%B8%8B%E7%BC%96%E8%AF%91OpenJDK8/">http://blog.elegantme.cn/Mac下编译OpenJDK8/</a> 转载请标明出处</p>
 
   </div>
   
@@ -310,16 +310,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&text=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&is_video=false&description=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8及虚拟机实践&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8及虚拟机实践/&name=Mac下编译OpenJDK8及虚拟机实践&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&text=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&is_video=false&description=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mac下编译OpenJDK8及虚拟机实践&body=Check out this article: http://blog.elegantme.cn/Mac下编译OpenJDK8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&title=Mac下编译OpenJDK8及虚拟机实践"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.elegantme.cn/Mac下编译OpenJDK8/&name=Mac下编译OpenJDK8及虚拟机实践&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
