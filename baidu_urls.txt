@@ -1,5 +1,5 @@
+http://blog.elegantme.cn/Java流及流操作示例/
 http://blog.elegantme.cn/Java-Virtual-Machine知识及实践/
 http://blog.elegantme.cn/Mac下编译OpenJDK8/
 http://blog.elegantme.cn/Spring-Boot启动类SpringApplication解析/
 http://blog.elegantme.cn/Hexo进行简单的SEO优化/
-http://blog.elegantme.cn/关于Disqus评论功能/

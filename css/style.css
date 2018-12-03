@@ -1112,6 +1112,15 @@ article .content h2:before {
   font-weight: bold;
   font-size: 1.2rem;
 }
+article .content .datatable {
+  th: , td;
+  border: 1px solid #2bbc8a;
+  border-collapse: collapse;
+td
+}
+article .content .datatable th {
+  background: #dbdbdb;
+}
 article .content img,
 article .content video {
   display: block;

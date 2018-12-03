@@ -192,7 +192,7 @@
 <h2 id="安装hexo"><a class="markdownIt-Anchor" href="#安装hexo"></a> 安装Hexo</h2>
 <p>使用下面的命令检查npm/node/git是否安装:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm -v </span><br><span class="line">$ node -v</span><br><span class="line">$ git --version</span><br></pre></td></tr></table></figure>
-<p><img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/1.png" alt=""><br>
+<p><img src="1.png" alt=""><br>
 若你已经拥有了<a href="#%E5%AE%89%E8%A3%85node%E5%92%8Cnpm">node</a>和<a href="#%E5%AE%89%E8%A3%85git">git</a>只需运行<code>$ npm install -g hexo-cli</code>即可</p>
 <h3 id="建站"><a class="markdownIt-Anchor" href="#建站"></a> 建站</h3>
 <p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p>
@@ -216,13 +216,13 @@
 <p><a href="#%E4%BD%BF%E7%94%A8Hexo%E6%8F%92%E4%BB%B6">本文链接</a></p>
 <h2 id="在github创建仓库并开启github-pages"><a class="markdownIt-Anchor" href="#在github创建仓库并开启github-pages"></a> 在Github创建仓库并开启GitHub Pages</h2>
 <p><a href="https://github.com/new" target="_blank" rel="noopener">创建仓库页面</a>填写 <strong>Repository name</strong> 如: <strong><a href="http://xiaohundun.github.io" target="_blank" rel="noopener">xiaohundun.github.io</a></strong><br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/2.png" alt=""><br>
+<img src="2.png" alt=""><br>
 点击Create repository即可,之后进入自己刚刚创建的仓库,点击上方的Settings进入设置页面:<br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/3.png" alt=""><br>
+<img src="3.png" alt=""><br>
 往下拉看到<br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/5.png" alt=""><br>
+<img src="5.png" alt=""><br>
 选择Source为Master Branch之后点击保存即可,之后你可能会看到这样的画面<br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/4.png" alt=""><br>
+<img src="4.png" alt=""><br>
 GitHub会提示你GitHub Pages是否已经搭建好以及发布到的地址<br>
 不过上图中是我的域名解析到了GitHub Pages,这在下面会介绍到<br>
 还没配置解析时,<a href="http://xn--username-im2mp96j6qrpz8b4c6c.github.io" target="_blank" rel="noopener">你的应该是username.github.io</a>,访问以下试试吧</p>
@@ -232,22 +232,22 @@ GitHub会提示你GitHub Pages是否已经搭建好以及发布到的地址<br>
 <p>其中<code>type: git</code>说明是使用git部署,不过要正常使用你需要先安装一个插件,这很简单,只需</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
 <p>其中的repo地址是你刚刚创建的仓库地址,如下图获取<br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/6.png" alt=""><br>
+<img src="6.png" alt=""><br>
 上面的配置中我使用的是SSH,如果你需要使用SSH参考<a href="https://www.jianshu.com/p/a422eb2bb8e2" target="_blank" rel="noopener">这篇文章</a><br>
 之后你只要使用 <code>hexo g -d</code> 即可完成生成及部署<br>
 部署完成后访问你的**Github Pages&lt;<a href="http://xiaohundun.github.io" target="_blank" rel="noopener">username.github.io</a>&gt;**查看效果</p>
 <h3 id="将你的域名解析到github-pages"><a class="markdownIt-Anchor" href="#将你的域名解析到github-pages"></a> 将你的域名解析到Github Pages</h3>
 <p>我是在阿里购买的域名,所以下面介绍在阿里云管理控制台添加解析<br>
 进入<a href="https://dc.console.aliyun.com/next/index#/domain/list/all-domain" target="_blank" rel="noopener">阿里云管理控制台</a>点击你域名后的解析<br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/7.png" alt=""><br>
+<img src="7.png" alt=""><br>
 点击解析进入解析设置页面,点击添加记录,添加下图第二、三条记录即可(<em>这样添加或不添加www都可访问</em>)<br>
-<img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/8.png" alt=""></p>
+<img src="8.png" alt=""></p>
 <blockquote>
 <p>第一条记录是解析到百度资源,第二条是解析www域名前缀,第三条的@就是直接解析主域名无前缀</p>
 </blockquote>
 <p>解析记录已经添加完毕,因为我们选择的记录类型是CNAME,所以我们要在本地Hexo博客source根目录下创建CNAME文件(<em>注意:无后缀</em>),并将域名写入文件中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch CNAME</span><br><span class="line">$ vim CNAME</span><br></pre></td></tr></table></figure>
-<p><img src="/Mac下Hexo-Github搭建博客、域名解析、hexo插件安装使用/9.png" alt=""><br>
+<p><img src="9.png" alt=""><br>
 添加你的域名之后保存退出,之后使用 <code>$ hexo g -d</code> 生成并发布,检查Github仓库根目录是否存在CNAME,若存在访问域名测试<br>
 如果你走到这里都没有问题的话那么恭喜你博客已经搭建成功啦😉<br>
 为了更好地使用Hexo,你可以接着阅读下面的插件使用😉</p>
@@ -428,7 +428,7 @@ cactus主题使用方法<a href="#%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E6%90%9C%
       </ul>
     </nav>
   </div>
-  本站文章共<span class="post-count">10k</span>字
+  本站文章共<span class="post-count">13k</span>字
 </footer>
 
     </div>
