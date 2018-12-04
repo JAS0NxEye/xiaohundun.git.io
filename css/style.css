@@ -579,7 +579,7 @@ body {
   }
 }
 .max-width {
-  max-width: 52rem;
+  max-width: 60rem;
 }
 @media (max-width: 480px) {
   .px3 {
@@ -1112,11 +1112,10 @@ article .content h2:before {
   font-weight: bold;
   font-size: 1.2rem;
 }
-article .content .datatable {
-  th: , td;
+article .content .datatable td,
+article .content .datatable th {
   border: 1px solid #2bbc8a;
   border-collapse: collapse;
-td
 }
 article .content .datatable th {
   background: #dbdbdb;
