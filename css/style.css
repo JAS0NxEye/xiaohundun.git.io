@@ -484,7 +484,8 @@ html {
 }
 body {
   height: 100%;
-  background-color: #fff;
+/*background-color: $color-background*/
+  background: url("$background-image-url") no-repeat;
   color: #383838;
   font-display: swap;
   font-weight: 400;
